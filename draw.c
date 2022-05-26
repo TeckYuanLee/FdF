@@ -1,4 +1,6 @@
-static void pixel_put(t_data *data, int x, int y, int color)
+#include "fdf.h"
+
+void pixel_put(t_data *data, int x, int y, int color)
 {
 	int		i;
 	char	*dst;
@@ -68,4 +70,71 @@ static void	line_put_y(t_point a, t_point b, int color, t_data *data)
 				x--;
 		}
 	}
+}
+
+int		abs_int(int n)
+{
+	if (n < 0)
+		return (-n);
+	return (n);
+}
+
+float	abs_float(float n)
+{
+	if (n < 0.0)
+		return (-n);
+	return (n);
+}
+
+void	line_put(t_point a, t_point b, int color, t_data *data)
+{
+	int		temp;
+	float	grad;
+
+	if (b.x - a.x ==0)
+		grad = (b.y - a.y);
+	else
+		grad = (b.y - a.y) / (float)(b.x - a.x);
+
+	if ((b.x < a.x && abs_float(grad) <= 1.0) || (b.y < a.y && abs_float(grad) > 1.0))
+	{
+		temp = a.x;
+		a.x = b.x;
+		b.x = temp;
+		temp = a.y;
+		a.y = b.y;
+		b.y = temp;
+	}
+	if (grad >= -1 && grad <= 1)
+		line_put_x(a, b, color, data);
+	else
+		line_put_y(a, b, color, data);
+}
+
+void	gridline_put(t_grid *grid, t_data *data, int color)
+{
+	int	i;
+	int	j;
+	t_point	**g;
+
+	g = grid->tmp_grid;
+	i = 0;
+	while (i < grid->row)
+	{
+		j = 0;
+		while (j < grid->col)
+		{
+			if (i != (grid->row -1))
+				line_put(g[i][j], g[i + 1][j], color, data);
+			if (j != (grid->col - 1))
+				line_put(g[i][j], g[i][j + 1], color, data);
+			j++;
+		}
+		i++;
+	}
+}
+
+void	grid_put(t_grid *grid, t_data *data)
+{
+	gridline_put(grid, data->img, 0x00FF0000);
 }

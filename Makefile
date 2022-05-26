@@ -3,8 +3,9 @@ LIBFT	=	libft/libft.a
 CC		=	gcc
 CFLAGS	=	-Wall -Werror -Wextra -I.
 LIBRARY	=	-lmlx -framework OpenGL -framework AppKit
+ARFLAGS	= 	rcs
 
-SRCS	=	main_img.c
+SRCS	=	main.c draw.c\
 OBJS	=	$(SRCS:c=o)
 
 all: $(NAME)
@@ -13,11 +14,11 @@ $(NAME):		$(OBJS)
 		@$(MAKE) all -sC ./libft
 		@$(CC) $(SRCS) $(LIBFT) $(LIBRARY) -o $(NAME)
 		@$(MAKE) clean -sC ./libft
-		@rm -f $(OBJ)
+		@rm -f $(OBJS)
 
 clean:
 		@$(MAKE) clean -sC ./libft
-		@rm -f $(OBJ)
+		@rm -f $(OBJS)
 
 fclean:	clean
 			@$(MAKE) fclean -sC ./libft
