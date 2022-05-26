@@ -5,7 +5,8 @@ CFLAGS	=	-Wall -Werror -Wextra -I.
 LIBRARY	=	-lmlx -framework OpenGL -framework AppKit
 ARFLAGS	= 	rcs
 
-SRCS	=	main.c draw.c\
+SRCS	=	main.c draw.c init.c\
+
 OBJS	=	$(SRCS:c=o)
 
 all: $(NAME)

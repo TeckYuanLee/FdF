@@ -3,7 +3,7 @@
 void pixel_put(t_data *data, int x, int y, int color)
 {
 	int		i;
-	char	*dst;
+	//char	*dst;
 
     if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
 	{
@@ -111,6 +111,26 @@ void	line_put(t_point a, t_point b, int color, t_data *data)
 		line_put_y(a, b, color, data);
 }
 
+void	grid_copy(t_grid *grid)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	while (i < grid->row)
+	{
+		j = 0;
+		while (j < grid->col)
+		{
+			grid->tmp_grid[i][j].x = grid->grid[i][j].x;
+			grid->tmp_grid[i][j].y = grid->grid[i][j].y;
+			//grid->tmp_grid[i][j].z = grid->grid[i][j].z;
+			j++;
+		}
+		i++;
+	}
+}
+
 void	gridline_put(t_grid *grid, t_data *data, int color)
 {
 	int	i;
@@ -136,5 +156,65 @@ void	gridline_put(t_grid *grid, t_data *data, int color)
 
 void	grid_put(t_grid *grid, t_data *data)
 {
+	grid_copy(grid);
 	gridline_put(grid, data->img, 0x00FF0000);
+}
+
+t_point	**alloc_grid(int row, int col)
+{
+	t_point	**tmp;
+	int		i;
+
+	tmp = malloc(sizeof(t_point *) * row);
+	i = 0;
+	while (i < row)
+	{
+		tmp[i] = malloc(sizeof(t_point) * col);
+		i++;
+	}
+	return (tmp);
+}
+
+t_point	**make_grid(char ***split, t_grid *grid)
+{
+	int		i;
+	int		j;
+	t_point	**tmp;
+	int		start_x;
+	int		start_y;
+
+	if (!split)
+		return (NULL);
+	tmp = alloc_grid(grid->row, grid->col);
+	i = 0;
+	start_x = -(grid->box_length * (grid->col - 1) / 2);
+	start_y = (grid->box_length * (grid->row - 1) / 2);
+	while (i < grid->row)
+	{
+		j = 0;
+		while (j < grid->col)
+		{
+			tmp[i][j].x = start_x + (j * grid->box_length);
+			tmp[i][j].y = start_y - (i * grid->box_length);
+			j++;
+		}
+		i++;
+	}
+	return (tmp);
+}
+
+void	update_tgrid(t_grid *grid, int row, int col)
+{
+	int		max_box_width;
+	int		max_box_height;
+
+	grid->col = col;
+	grid->row = row;
+	max_box_width = (WIDTH * WIN_FIT) / col;
+	max_box_height = (HEIGHT * WIN_FIT) / row;
+	if (max_box_width > max_box_height)
+		grid->box_length = max_box_width;
+	else
+		grid->box_length = max_box_height;
+	grid->tmp_grid = alloc_grid(row, col);
 }
