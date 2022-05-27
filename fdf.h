@@ -14,7 +14,8 @@
 #include <mlx.h>
 #include <fcntl.h>
 #include <sys/stat.h>
-#include "libft/libft.h"
+#include "libft/includes/libft.h"
+#include "libft/includes/get_next_line.h"
 
 typedef struct s_point
 {
@@ -71,5 +72,6 @@ char    ***free_char_arr(char ***split, int row);
 t_point	**make_grid(char ***split, t_grid *grid);
 t_point	**alloc_grid(int row, int col);
 void	update_tgrid(t_grid *grid, int row, int col);
+int		check_array(char ***split, int row, int *col);
 
 #endif
