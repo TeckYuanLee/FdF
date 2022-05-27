@@ -1,14 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   4line.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: telee <telee@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/27 19:42:14 by telee             #+#    #+#             */
+/*   Updated: 2022/05/27 19:42:14 by telee            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
-void pixel_put(t_data *data, int x, int y, int color)
+void	pixel_put(t_data *data, int x, int y, int color)
 {
 	int		i;
-	//char	*dst;
 
-    if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
+	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
 	{
 		i = (x * data->bits_per_pixel / 8) + (y * data->line_length);
-		//*(unsigned int*)dst = color;
 		data->addr[i] = color;
 		data->addr[++i] = color >> 8;
 		data->addr[++i] = color >> 16;
@@ -25,7 +35,6 @@ static void	line_put_x(t_point a, t_point b, int color, t_data *data)
 
 	x = a.x;
 	y = a.y;
-    // not sure what is the use of 'p' yet
 	p = 2 * dy - dx;
 	while (x <= b.x)
 	{
@@ -54,7 +63,6 @@ static void	line_put_y(t_point a, t_point b, int color, t_data *data)
 
 	x = a.x;
 	y = a.y;
-    // not sure what is the use of 'p' yet
 	p = 2 * dx - dy;
 	while (y <= b.y)
 	{
@@ -82,8 +90,8 @@ void	line_put(t_point a, t_point b, int color, t_data *data)
 		grad = (b.y - a.y);
 	else
 		grad = (b.y - a.y) / (float)(b.x - a.x);
-
-	if ((b.x < a.x && abs_float(grad) <= 1.0) || (b.y < a.y && abs_float(grad) > 1.0))
+	if ((b.x < a.x && abs_float(grad) <= 1.0)
+		|| (b.y < a.y && abs_float(grad) > 1.0))
 	{
 		temp = a.x;
 		a.x = b.x;
@@ -100,8 +108,8 @@ void	line_put(t_point a, t_point b, int color, t_data *data)
 
 void	gridline_put(t_grid *grid, t_data *data, int color)
 {
-	int	    i;
-	int	    j;
+	int		i;
+	int		j;
 	t_point	**g;
 
 	g = grid->tmp_grid;
