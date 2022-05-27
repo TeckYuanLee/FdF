@@ -1,6 +1,6 @@
 #include "fdf.h"
 
-t_map   *init_map(void)
+/*t_map   *init_map(void)
 {
     t_map   *map;
 
@@ -15,7 +15,7 @@ t_map   *init_map(void)
     map->z_max = FT_INT_MIN;
     map->z_range = 0;
     return (map);
-}
+}*/
 
 /*_data  *init_data(t_map *map)
 {
