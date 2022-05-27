@@ -111,26 +111,6 @@ void	line_put(t_point a, t_point b, int color, t_data *data)
 		line_put_y(a, b, color, data);
 }
 
-void	grid_copy(t_grid *grid)
-{
-	int		i;
-	int		j;
-
-	i = 0;
-	while (i < grid->row)
-	{
-		j = 0;
-		while (j < grid->col)
-		{
-			grid->tmp_grid[i][j].x = grid->grid[i][j].x;
-			grid->tmp_grid[i][j].y = grid->grid[i][j].y;
-			//grid->tmp_grid[i][j].z = grid->grid[i][j].z;
-			j++;
-		}
-		i++;
-	}
-}
-
 void	gridline_put(t_grid *grid, t_data *data, int color)
 {
 	int	i;
