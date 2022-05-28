@@ -40,16 +40,16 @@ char	***free_char_arr(char ***split, int row)
 	return (NULL);
 }
 
-void	clean_image(t_img *img)
+void	clean_image(t_data *data)
 {
 	int	i;
 	int	j;
 
 	i = -1;
-	while (++i < img->HEIGHT)
+	while (++i < HEIGHT)
 	{
 		j = -1;
-		while (++j < img->WIDTH)
+		while (++j < WIDTH)
 			pixel_put(img, j, i, 0x00000000);
 	}
 }
