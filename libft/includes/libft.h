@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: telee <telee@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: telee <telee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 14:29:17 by telee             #+#    #+#             */
-/*   Updated: 2021/06/27 10:14:09 by telee            ###   ########.fr       */
+/*   Updated: 2022/05/28 08:35:25 by telee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
-# define	LIBFT_H
+# define LIBFT_H
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -26,8 +26,8 @@ int			ft_abs(int n);
 void		ft_putchar(char c);
 void		ft_putstr(char *s);
 void		ft_putnbr(int nb);
-char		*ft_decToHexa(size_t n);
-char		*ft_decToHexaBig(size_t n);
+char		*ft_dectohexa(size_t n);
+char		*ft_dectohexabig(size_t n);
 char		*ft_strncpy(char *dest, char *src, unsigned int n);
 size_t		ft_atoi_sizet(const char *str);
 
@@ -77,8 +77,8 @@ void		ft_lstadd_front(t_list **lst, t_list *new);
 int			ft_lstsize(t_list *lst);
 t_list		*ft_lstlast(t_list *lst);
 void		ft_lstadd_back(t_list **lst, t_list *new);
-void		ft_lstdelone(t_list *lst, void(*del)(void *));
-void		ft_lstclear(t_list **lst, void(*del)(void *));
-void		ft_lstiter(t_list *lst, void(*f)(void *));
+void		ft_lstdelone(t_list *lst, void (*del)(void *));
+void		ft_lstclear(t_list **lst, void (*del)(void *));
+void		ft_lstiter(t_list *lst, void (*f)(void *));
 t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 #endif

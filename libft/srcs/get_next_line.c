@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: telee <telee@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: telee <telee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/07 13:28:12 by telee             #+#    #+#             */
-/*   Updated: 2021/06/08 16:40:47 by telee            ###   ########.fr       */
+/*   Updated: 2022/05/28 08:23:58 by telee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	line_or_EOF(char **line, char **str)
+int	line_or_eof(char **line, char **str)
 {
 	char	*tmp;
 	int		j;
@@ -61,7 +61,7 @@ int	ft_joinstr(int fd, char **str, char **line)
 		*str = 0;
 		return (-1);
 	}
-	return (line_or_EOF(line, str));
+	return (line_or_eof(line, str));
 }
 
 int	get_next_line(int fd, char **line)

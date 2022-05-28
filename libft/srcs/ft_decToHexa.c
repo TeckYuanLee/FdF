@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_decToHexa.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: telee <telee@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/28 08:26:30 by telee             #+#    #+#             */
+/*   Updated: 2022/05/28 08:29:40 by telee            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-char	*ft_decToHexa(size_t n)
+char	*ft_dectohexa(size_t n)
 {
-	char		hexaDeciNum[40];
+	char		hexadecinum[40];
 	static char	str[40];
 	int			i;
 	int			j;
@@ -16,15 +28,15 @@ char	*ft_decToHexa(size_t n)
 		temp = 0;
 		temp = n % 16;
 		if (temp < 10)
-			 hexaDeciNum[i++] = temp + 48;
-		 else
-			 hexaDeciNum[i++] = temp + 87;
-		 n /= 16;
+			hexadecinum[i++] = temp + 48;
+		else
+			hexadecinum[i++] = temp + 87;
+		n /= 16;
 	}
 	j = i - 1;
 	i = 0;
 	ft_bzero(str, 40);
 	while (j >= 0)
-		str[i++] = hexaDeciNum[j--];
+		str[i++] = hexadecinum[j--];
 	return (str);
 }
