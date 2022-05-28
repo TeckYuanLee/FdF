@@ -14,17 +14,17 @@
 
 void	blank_put(t_data *data)
 {
-	clean_image(&data->img);
-	mlx_put_image_to_window(data->win.mlx,
-		data->win.window, data->img.img, 0, 0);
+	clean_image(data);
+	mlx_put_image_to_window(data->mlx,
+		data->win, data->img, 0, 0);
 }
 
-void	grid_put(t_data *data)
+void	grid_put(t_grid *grid, t_data *data, t_transform *transf)
 {
-	clean_image(&data->img);
-	grip_dup(&data->grid);
-	apply_transformation(&data->grid, &data->tform);
-	gridline_put(&data->grid, &data->img, HEX_COLOR);
-	mlx_put_image_to_window(data->win.mlx,
-		data->win.window, data->img.img, 0, 0);
+	clean_image(data);
+	grid_dup(grid);
+	apply_transformation(grid, transf);
+	gridline_put(grid, data, 0x0000FF00);
+	mlx_put_image_to_window(data->mlx,
+		data->win, data->img, 0, 0);
 }

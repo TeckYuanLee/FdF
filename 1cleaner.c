@@ -50,6 +50,6 @@ void	clean_image(t_data *data)
 	{
 		j = -1;
 		while (++j < WIDTH)
-			pixel_put(img, j, i, 0x00000000);
+			pixel_put(data, j, i, 0x00000000);
 	}
 }

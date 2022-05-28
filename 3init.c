@@ -15,7 +15,7 @@
 void	init_window(t_data *data, char *title)
 {
 	data->mlx = mlx_init();
-	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "Hellooooooo");
+	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, title);
 	data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
 			&data->line_length, &data->endian);

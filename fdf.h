@@ -6,7 +6,7 @@
 /*   By: telee <telee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 20:22:09 by telee             #+#    #+#             */
-/*   Updated: 2022/05/28 11:40:16 by telee            ###   ########.fr       */
+/*   Updated: 2022/05/28 12:19:24 by telee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 
 # include <stdlib.h>
 # include <mlx.h>
+# include <math.h>
 # include <fcntl.h>
 # include <sys/stat.h>
 # include "libft/includes/libft.h"
@@ -102,8 +103,9 @@ int		abs_int(int n);
 float	abs_float(float n);
 void	init_window(t_data *data, char *title);
 int		init_grid(t_grid *grid, char *file);
+void	init_transform(t_transform *transf);
 void	gridline_put(t_grid *grid, t_data *data, int color);
-void	grid_put(t_grid *grid, t_data *data);
+void	grid_put(t_grid *grid, t_data *data, t_transform *transf);
 void	blank_put(t_data *data);
 void	grid_dup(t_grid *grid);
 int		read_file(int fd, t_grid *grid);
@@ -116,6 +118,7 @@ void	grid_temp(t_grid *grid, int row, int col);
 int		check_array(char ***split, int row, int *col);
 t_point	**grid_alloc(int row, int col);
 t_point	**grid_free(t_point **grid, int row);
+void	clean_image(t_data *data);
 
 void	apply_perspective(t_point *coor, double Z0);
 void	apply_iso(t_point *coor, float iso_rad_const);
