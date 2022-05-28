@@ -6,7 +6,7 @@
 /*   By: telee <telee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 20:22:09 by telee             #+#    #+#             */
-/*   Updated: 2022/05/27 20:31:12 by telee            ###   ########.fr       */
+/*   Updated: 2022/05/28 11:40:16 by telee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@ typedef struct s_point
 	int	y;
 	int	z;
 }				t_point;
+
+typedef struct s_trans
+{
+	int	x;
+	int	y;
+}				t_trans;
 
 typedef struct s_data
 {
@@ -70,12 +76,25 @@ typedef struct s_grid
 typedef struct s_transform
 {
 	t_point	rotate;
-	t_point	transform;
+	t_trans	transform;
 	float	zoom;
 	int		projection;
 	double	z0_const;
 	float	iso_radian_const;
 }				t_transform;
+
+typedef struct s_matrix
+{
+	float a;
+	float b;
+	float c;
+	float d;
+	float e;
+	float f;
+	float g;
+	float h;
+	float i;
+}				t_matrix;
 
 void	pixel_put(t_data *data, int x, int y, int color);
 void	line_put(t_point a, t_point b, int color, t_data *data);
@@ -85,7 +104,7 @@ void	init_window(t_data *data, char *title);
 int		init_grid(t_grid *grid, char *file);
 void	gridline_put(t_grid *grid, t_data *data, int color);
 void	grid_put(t_grid *grid, t_data *data);
-void	blank_put(t_data *data)
+void	blank_put(t_data *data);
 void	grid_dup(t_grid *grid);
 int		read_file(int fd, t_grid *grid);
 char	***make_char_arr(t_list *lst, int row);
@@ -98,16 +117,16 @@ int		check_array(char ***split, int row, int *col);
 t_point	**grid_alloc(int row, int col);
 t_point	**grid_free(t_point **grid, int row);
 
-void	apply_perspective(t_coor *coor, double Z0);
-void	apply_iso(t_coor *coor, float iso_rad_const);
+void	apply_perspective(t_point *coor, double Z0);
+void	apply_iso(t_point *coor, float iso_rad_const);
 void	switch_projection(int *projection);
 t_matrix	rotate_x(int degree);
 t_matrix	rotate_y(int degree);
 t_matrix	rotate_z(int degree);
-void	apply_rotate(t_coor *coor, char axis, int degree);
-void	apply_zoom(t_coor *coor, float zoom);
-void	apply_translate(t_coor *coor, t_trans trans);
-void	apply_center(t_coor *coor);
-void	apply_transformation(t_grid *grid, t_tform *tform);
+void	apply_rotate(t_point *coor, char axis, int degree);
+void	apply_zoom(t_point *coor, float zoom);
+void	apply_translate(t_point *coor, t_trans trans);
+void	apply_center(t_point *coor);
+void	apply_transformation(t_grid *grid, t_transform *tform);
 
 #endif

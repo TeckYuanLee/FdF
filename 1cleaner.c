@@ -40,7 +40,6 @@ char	***free_char_arr(char ***split, int row)
 	return (NULL);
 }
 
-
 void	clean_image(t_img *img)
 {
 	int	i;

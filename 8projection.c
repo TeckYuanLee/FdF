@@ -1,14 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   8projection.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: telee <telee@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/28 10:22:11 by telee             #+#    #+#             */
+/*   Updated: 2022/05/28 10:22:11 by telee            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
-void	apply_perspective(t_coor *coor, double Z0)
+void	apply_perspective(t_point *coor, double Z0)
 {
 	coor->x = (coor->x * Z0) / (Z0 + coor->z);
 	coor->y = (coor->y * Z0) / (Z0 + coor->z);
 }
 
-void	apply_iso(t_coor *coor, float iso_rad_const)
+void	apply_iso(t_point *coor, float iso_rad_const)
 {
-	t_coor	tmp;
+	t_point	tmp;
 
 	tmp.x = coor->x;
 	tmp.y = coor->y;
@@ -19,8 +31,8 @@ void	apply_iso(t_coor *coor, float iso_rad_const)
 
 void	switch_projection(int *projection)
 {
-	if (*projection == ISOMETRIC)
-		*projection = PERSPECTIVE;
+	if (*projection == 1)
+		*projection = 2;
 	else
-		*projection = ISOMETRIC;
+		*projection = 1;
 }

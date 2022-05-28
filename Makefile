@@ -1,13 +1,27 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: telee <telee@student.42.fr>                +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/05/28 10:32:20 by telee             #+#    #+#              #
+#    Updated: 2022/05/28 10:37:05 by telee            ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME	=	fdf
 LIBFT	=	libft/libft.a
 CC		=	gcc
-CFLAGS	=	-Wall -Werror -Wextra -I.
+CFLAGS	=	-Wall -Werror -Wextra -I. -c
 LIBRARY	=	-lmlx -framework OpenGL -framework AppKit
 ARFLAGS	= 	rcs
 
-SRCS	=	main.c draw.c init.c\
+SRCS	=	$(wildcard ./*.c)
+OBJS	=	$(SRCS:./%.c=./%.o)
 
-OBJS	=	$(SRCS:c=o)
+obj/%.o:	srcs/%.c
+				@gcc $(FLAGS) -c $< -o $@ -Iincludes
 
 all: $(NAME)
 

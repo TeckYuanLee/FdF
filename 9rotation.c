@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   9rotation.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: telee <telee@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/28 10:22:20 by telee             #+#    #+#             */
+/*   Updated: 2022/05/28 10:22:20 by telee            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
 t_matrix	rotate_x(int degree)
 {
-	const float		rad = (degree) * (M_PI / 180.0);
+	const float		rad = (degree) * (60.0 / 180.0);
 	t_matrix		tmp;
 
 	tmp.a = 1;
@@ -19,7 +31,7 @@ t_matrix	rotate_x(int degree)
 
 t_matrix	rotate_y(int degree)
 {
-	const float		rad = (degree) * (M_PI / 180.0);
+	const float		rad = (degree) * (60.0 / 180.0);
 	t_matrix		tmp;
 
 	tmp.a = cos(rad);
@@ -36,7 +48,7 @@ t_matrix	rotate_y(int degree)
 
 t_matrix	rotate_z(int degree)
 {
-	const float		rad = (degree) * (M_PI / 180.0);
+	const float		rad = (degree) * (60.0 / 180.0);
 	t_matrix		tmp;
 
 	tmp.a = cos(rad);
@@ -51,23 +63,20 @@ t_matrix	rotate_z(int degree)
 	return (tmp);
 }
 
-void	apply_rotate(t_coor *coor, char axis, int degree)
+void	apply_rotate(t_point *coor, char axis, int degree)
 {
 	t_matrix	matrix;
-	t_coor		tmp;
+	t_point		tmp;
 
-	// Choose rotational formulas to be applied
 	if (axis == 'x')
 		matrix = rotate_x(degree);
 	else if (axis == 'y')
 		matrix = rotate_y(degree);
 	else if (axis == 'z')
 		matrix = rotate_z(degree);
-	// Store tmp to prevent update/change of data
 	tmp.x = coor->x;
 	tmp.y = coor->y;
 	tmp.z = coor->z;
-	// Matric multiplication to consider existing coordinates
 	coor->x = (tmp.x * matrix.a) + (tmp.y * matrix.b) + (tmp.z * matrix.c);
 	coor->y = (tmp.x * matrix.d) + (tmp.y * matrix.e) + (tmp.z * matrix.f);
 	coor->z = (tmp.x * matrix.g) + (tmp.y * matrix.h) + (tmp.z * matrix.i);

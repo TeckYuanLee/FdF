@@ -12,7 +12,7 @@
 
 #include "fdf.h"
 
-char 	***make_char_arr(t_list *lst, int row)
+char	***make_char_arr(t_list *lst, int row)
 {
 	char	***split;
 	int		i;
