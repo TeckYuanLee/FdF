@@ -56,8 +56,8 @@ void	init_transform(t_transform *transf)
 
 t_list	*create_list(int fd, int *row)
 {
-	char	*tmp;
 	t_list	*lst;
+	char	*tmp;
 
 	lst = NULL;
 	*row = 0;
@@ -78,21 +78,20 @@ int	read_file(int fd, t_grid *grid)
 	int		error;
 	char	***split;
 
-	error = 0;
 	lst = NULL;
-	row = 0;
-	lst = create_list(fd, &row);
+	error = 0;
 	split = NULL;
-	split = make_char_arr(lst, row);
+	lst = create_list(fd, &row);
+	split = create_array(lst, row);
 	error = check_array(split, row, &col);
 	if (!error)
 	{
 		grid->grid = NULL;
-		grid_temp(grid, row, col);
+		grid_wireframe(grid, row, col);
 		grid->grid = grid_plot(split, grid);
 	}
 	ft_lstclear(&lst, free);
-	split = free_char_arr(split, row);
+	split = free_array(split, row);
 	close(fd);
 	return (error);
 }

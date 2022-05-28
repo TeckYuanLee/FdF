@@ -12,7 +12,7 @@
 
 #include "fdf.h"
 
-char	***make_char_arr(t_list *lst, int row)
+char	***create_array(t_list *lst, int row)
 {
 	char	***split;
 	int		i;
@@ -23,9 +23,8 @@ char	***make_char_arr(t_list *lst, int row)
 	i = row - 1;
 	while (i >= 0)
 	{
-		split[i] = ft_split((char *)(lst->content), ' ');
+		split[i--] = ft_split((char *)(lst->content), ' ');
 		lst = lst->next;
-		i--;
 	}
 	return (split);
 }
@@ -44,18 +43,18 @@ t_point	**grid_alloc(int row, int col)
 
 t_point	**grid_plot(char ***split, t_grid *grid)
 {
+	t_point	**tmp;
 	int		i;
 	int		j;
 	int		x;
 	int		y;
-	t_point	**tmp;
 
 	if (!split)
 		return (NULL);
 	tmp = grid_alloc(grid->row, grid->col);
-	i = -1;
 	x = -(grid->box_length * (grid->col - 1) / 2);
 	y = (grid->box_length * (grid->row - 1) / 2);
+	i = -1;
 	while (++i < grid->row)
 	{
 		j = -1;
@@ -69,7 +68,7 @@ t_point	**grid_plot(char ***split, t_grid *grid)
 	return (tmp);
 }
 
-void	grid_temp(t_grid *grid, int row, int col)
+void	grid_wireframe(t_grid *grid, int row, int col)
 {
 	int	max_width;
 	int	max_height;

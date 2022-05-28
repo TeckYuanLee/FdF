@@ -23,7 +23,7 @@ t_point	**grid_free(t_point **grid, int row)
 	return (NULL);
 }
 
-char	***free_char_arr(char ***split, int row)
+char	***free_array(char ***split, int row)
 {
 	int	i;
 	int	j;

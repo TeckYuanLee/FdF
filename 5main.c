@@ -18,10 +18,10 @@ int	main(int argc, char **argv)
 	t_grid		grid;
 	t_transform	transf;
 
-	if (init_grid(&grid, argv[1]) == -1)
-		return (2);
 	if (argc == 2)
 	{
+		if (init_grid(&grid, argv[1]) == -1)
+			return (2);
 		init_window(&data, argv[1]);
 		init_transform(&transf);
 		grid_put(&grid, &data, &transf);

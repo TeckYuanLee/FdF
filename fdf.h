@@ -69,9 +69,9 @@ typedef struct s_grid
 {
 	t_point	**grid;
 	t_point	**tmp_grid;
-	int		box_length;
-	int		row;
 	int		col;
+	int		row;
+	int		box_length;
 }				t_grid;
 
 typedef struct s_transform
@@ -109,12 +109,12 @@ void	grid_put(t_grid *grid, t_data *data, t_transform *transf);
 void	blank_put(t_data *data);
 void	grid_dup(t_grid *grid);
 int		read_file(int fd, t_grid *grid);
-char	***make_char_arr(t_list *lst, int row);
+char	***create_array(t_list *lst, int row);
 t_list	*create_list(int fd, int *row);
-char	***free_char_arr(char ***split, int row);
+char	***free_array(char ***split, int row);
 t_point	**grid_plot(char ***split, t_grid *grid);
 t_point	**grid_alloc(int row, int col);
-void	grid_temp(t_grid *grid, int row, int col);
+void	grid_wireframe(t_grid *grid, int row, int col);
 int		check_array(char ***split, int row, int *col);
 t_point	**grid_alloc(int row, int col);
 t_point	**grid_free(t_point **grid, int row);
