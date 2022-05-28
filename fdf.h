@@ -85,6 +85,7 @@ void	init_window(t_data *data, char *title);
 int		init_grid(t_grid *grid, char *file);
 void	gridline_put(t_grid *grid, t_data *data, int color);
 void	grid_put(t_grid *grid, t_data *data);
+void	blank_put(t_data *data)
 void	grid_dup(t_grid *grid);
 int		read_file(int fd, t_grid *grid);
 char	***make_char_arr(t_list *lst, int row);
@@ -96,5 +97,17 @@ void	grid_temp(t_grid *grid, int row, int col);
 int		check_array(char ***split, int row, int *col);
 t_point	**grid_alloc(int row, int col);
 t_point	**grid_free(t_point **grid, int row);
+
+void	apply_perspective(t_coor *coor, double Z0);
+void	apply_iso(t_coor *coor, float iso_rad_const);
+void	switch_projection(int *projection);
+t_matrix	rotate_x(int degree);
+t_matrix	rotate_y(int degree);
+t_matrix	rotate_z(int degree);
+void	apply_rotate(t_coor *coor, char axis, int degree);
+void	apply_zoom(t_coor *coor, float zoom);
+void	apply_translate(t_coor *coor, t_trans trans);
+void	apply_center(t_coor *coor);
+void	apply_transformation(t_grid *grid, t_tform *tform);
 
 #endif

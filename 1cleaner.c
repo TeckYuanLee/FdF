@@ -23,20 +23,34 @@ t_point	**grid_free(t_point **grid, int row)
 	return (NULL);
 }
 
+char	***free_char_arr(char ***split, int row)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (++i < row)
+	{
+		j = -1;
+		while (split[i][++j])
+			free(split[i][j]);
+		free(split[i]);
+	}
+	free(split);
+	return (NULL);
+}
+
+
 void	clean_image(t_img *img)
 {
 	int	i;
 	int	j;
 
-	i = 0;
-	while (i < img->reso_h)
+	i = -1;
+	while (++i < img->HEIGHT)
 	{
-		j = 0;
-		while (j < img->reso_w)
-		{
-			my_mlx_pixel_put(img, j, i, 0x00000000);
-			j++;
-		}
-		i++;
+		j = -1;
+		while (++j < img->WIDTH)
+			pixel_put(img, j, i, 0x00000000);
 	}
 }

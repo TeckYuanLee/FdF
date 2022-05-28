@@ -12,6 +12,24 @@
 
 #include "fdf.h"
 
+char 	***make_char_arr(t_list *lst, int row)
+{
+	char	***split;
+	int		i;
+
+	split = malloc(sizeof(char **) * row);
+	if (!split)
+		return (NULL);
+	i = row - 1;
+	while (i >= 0)
+	{
+		split[i] = ft_split((char *)(lst->content), ' ');
+		lst = lst->next;
+		i--;
+	}
+	return (split);
+}
+
 t_point	**grid_alloc(int row, int col)
 {
 	t_point	**tmp;
