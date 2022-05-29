@@ -12,7 +12,7 @@
 
 #include "fdf.h"
 
-void	apply_perspective(t_point *coor, double Z0)
+void	perspective(t_point *coor, double Z0)
 {
 	coor->x = (coor->x * Z0) / (Z0 + coor->z);
 	coor->y = (coor->y * Z0) / (Z0 + coor->z);

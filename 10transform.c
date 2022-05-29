@@ -12,7 +12,7 @@
 
 #include "fdf.h"
 
-void	apply_zoom(t_point *coor, float zoom)
+void	zoom(t_point *coor, float zoom)
 {
 	if (zoom < 0)
 		return ;
@@ -21,19 +21,19 @@ void	apply_zoom(t_point *coor, float zoom)
 	coor->z *= zoom;
 }
 
-void	apply_translate(t_point *coor, t_trans trans)
+void	translate(t_point *coor, t_trans trans)
 {
 	coor->x += trans.x;
 	coor->y += trans.y;
 }
 
-void	apply_center(t_point *coor)
+void	center(t_point *coor)
 {
 	coor->x = coor->x + WIDTH / 2;
 	coor->y = (HEIGHT / 2) - coor->y;
 }
 
-void	apply_transformation(t_grid *grid, t_transform *tform)
+void	transform(t_grid *grid, t_transform *tform)
 {
 	int	i;
 	int	j;
@@ -44,19 +44,19 @@ void	apply_transformation(t_grid *grid, t_transform *tform)
 		j = -1;
 		while (++j < grid->col)
 		{
-			apply_rotate(&grid->tmp_grid[i][j], 'x', tform->rotate.x);
-			apply_rotate(&grid->tmp_grid[i][j], 'y', tform->rotate.y);
-			apply_rotate(&grid->tmp_grid[i][j], 'z', tform->rotate.z);
+			rotate(&grid->tmp_grid[i][j], 'x', tform->rotate.x);
+			rotate(&grid->tmp_grid[i][j], 'y', tform->rotate.y);
+			rotate(&grid->tmp_grid[i][j], 'z', tform->rotate.z);
 			if (tform->projection == 1)
-				apply_zoom(&grid->tmp_grid[i][j], tform->zoom);
+				zoom(&grid->tmp_grid[i][j], tform->zoom);
 			if (tform->projection == 1)
 				apply_iso(&grid->tmp_grid[i][j], tform->iso_radian_const);
 			else if (tform->projection == 2)
-				apply_perspective(&grid->tmp_grid[i][j], tform->z0_const);
+				perspective(&grid->tmp_grid[i][j], tform->z0_const);
 			if (tform->projection == 2)
-				apply_zoom(&grid->tmp_grid[i][j], tform->zoom);
-			apply_translate(&grid->tmp_grid[i][j], tform->transform);
-			apply_center(&grid->tmp_grid[i][j]);
+				zoom(&grid->tmp_grid[i][j], tform->zoom);
+			translate(&grid->tmp_grid[i][j], tform->transform);
+			center(&grid->tmp_grid[i][j]);
 		}
 	}
 }

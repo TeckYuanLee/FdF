@@ -22,6 +22,8 @@
 # define FT_INT_MIN ((int)(~FT_INT_MAX))
 # define WIN_FIT    0.80
 
+# include <stdio.h>
+
 # include <stdlib.h>
 # include <mlx.h>
 # include <math.h>
@@ -120,16 +122,16 @@ t_point	**grid_alloc(int row, int col);
 t_point	**grid_free(t_point **grid, int row);
 void	clean_image(t_data *data);
 
-void	apply_perspective(t_point *coor, double Z0);
+void	perspective(t_point *coor, double Z0);
 void	apply_iso(t_point *coor, float iso_rad_const);
 void	switch_projection(int *projection);
 t_matrix	rotate_x(int degree);
 t_matrix	rotate_y(int degree);
 t_matrix	rotate_z(int degree);
-void	apply_rotate(t_point *coor, char axis, int degree);
-void	apply_zoom(t_point *coor, float zoom);
-void	apply_translate(t_point *coor, t_trans trans);
-void	apply_center(t_point *coor);
-void	apply_transformation(t_grid *grid, t_transform *tform);
+void	rotate(t_point *coor, char axis, int degree);
+void	zoom(t_point *coor, float zoom);
+void	translate(t_point *coor, t_trans trans);
+void	center(t_point *coor);
+void	transform(t_grid *grid, t_transform *tform);
 
 #endif

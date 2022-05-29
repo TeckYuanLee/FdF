@@ -63,7 +63,7 @@ t_matrix	rotate_z(int degree)
 	return (tmp);
 }
 
-void	apply_rotate(t_point *coor, char axis, int degree)
+void	rotate(t_point *coor, char axis, int degree)
 {
 	t_matrix	matrix;
 	t_point		tmp;
