@@ -18,7 +18,7 @@ void	perspective(t_point *coor, double Z0)
 	coor->y = (coor->y * Z0) / (Z0 + coor->z);
 }
 
-void	apply_iso(t_point *coor, float iso_rad_const)
+void	isometric(t_point *coor, float iso_rad_const)
 {
 	t_point	tmp;
 

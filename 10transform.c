@@ -50,7 +50,7 @@ void	transform(t_grid *grid, t_transform *tform)
 			if (tform->projection == 1)
 				zoom(&grid->tmp_grid[i][j], tform->zoom);
 			if (tform->projection == 1)
-				apply_iso(&grid->tmp_grid[i][j], tform->iso_radian_const);
+				isometric(&grid->tmp_grid[i][j], tform->iso_radian_const);
 			else if (tform->projection == 2)
 				perspective(&grid->tmp_grid[i][j], tform->z0_const);
 			if (tform->projection == 2)

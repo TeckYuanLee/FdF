@@ -119,7 +119,7 @@ void	gridline_put(t_grid *grid, t_data *data, int color)
 		j = -1;
 		while (++j < grid->col)
 		{
-			if (i != (grid->row -1))
+			if (i != (grid->row - 1))
 				line_put(g[i][j], g[i + 1][j], color, data);
 			if (j != (grid->col - 1))
 				line_put(g[i][j], g[i][j + 1], color, data);
