@@ -47,14 +47,8 @@ void	transform(t_grid *grid, t_transform *tform)
 			rotate(&grid->tmp_grid[i][j], 'x', tform->rotate.x);
 			rotate(&grid->tmp_grid[i][j], 'y', tform->rotate.y);
 			rotate(&grid->tmp_grid[i][j], 'z', tform->rotate.z);
-			if (tform->projection == 1)
-				zoom(&grid->tmp_grid[i][j], tform->zoom);
-			if (tform->projection == 1)
-				isometric(&grid->tmp_grid[i][j], tform->iso_radian_const);
-			else if (tform->projection == 2)
-				perspective(&grid->tmp_grid[i][j], tform->z0_const);
-			if (tform->projection == 2)
-				zoom(&grid->tmp_grid[i][j], tform->zoom);
+			zoom(&grid->tmp_grid[i][j], tform->zoom);
+			isometric(&grid->tmp_grid[i][j], tform->iso_radian_const);
 			translate(&grid->tmp_grid[i][j], tform->transform);
 			center(&grid->tmp_grid[i][j]);
 		}

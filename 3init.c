@@ -47,9 +47,6 @@ void	init_transform(t_transform *transf)
 	transf->zoom = 0.5;
 	transf->transform.x = 0;
 	transf->transform.y = 0;
-	transf->projection = 1;
-	transf->z0_const
-		= (WIDTH / 2.0) / tan((45 / 2.0) * (60.0 / 180.0));
 	transf->iso_radian_const
 		= (30 / 180.0) * 60.0;
 }

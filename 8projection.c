@@ -12,12 +12,6 @@
 
 #include "fdf.h"
 
-void	perspective(t_point *coor, double Z0)
-{
-	coor->x = (coor->x * Z0) / (Z0 + coor->z);
-	coor->y = (coor->y * Z0) / (Z0 + coor->z);
-}
-
 void	isometric(t_point *coor, float iso_rad_const)
 {
 	t_point	tmp;
@@ -27,12 +21,4 @@ void	isometric(t_point *coor, float iso_rad_const)
 	coor->x = (tmp.x - tmp.y) * cos(iso_rad_const);
 	coor->y = -(coor->z) + (tmp.x + tmp.y) * sin(iso_rad_const);
 	coor->z = coor->z;
-}
-
-void	switch_projection(int *projection)
-{
-	if (*projection == 1)
-		*projection = 2;
-	else
-		*projection = 1;
 }

@@ -78,8 +78,6 @@ typedef struct s_transform
 	t_point	rotate;
 	t_trans	transform;
 	float	zoom;
-	int		projection;
-	double	z0_const;
 	float	iso_radian_const;
 }				t_transform;
 
@@ -119,9 +117,7 @@ t_point		**grid_alloc(int row, int col);
 t_point		**grid_free(t_point **grid, int row);
 void		clean_image(t_data *data);
 
-void		perspective(t_point *coor, double Z0);
 void		isometric(t_point *coor, float iso_rad_const);
-void		switch_projection(int *projection);
 t_matrix	rotate_x(int degree);
 t_matrix	rotate_y(int degree);
 t_matrix	rotate_z(int degree);
@@ -133,5 +129,6 @@ void		transform(t_grid *grid, t_transform *tform);
 
 int			exit_win(t_data *data);
 int			key_hook(int keycode, t_data *data);
+void		quit(void *win, t_data *data, t_grid *grid);
 
 #endif
