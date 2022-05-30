@@ -6,7 +6,7 @@
 /*   By: telee <telee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 20:22:09 by telee             #+#    #+#             */
-/*   Updated: 2022/05/28 12:19:24 by telee            ###   ########.fr       */
+/*   Updated: 2022/05/30 09:19:22 by telee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 # define FDF_H
 
-# define HEIGHT     1080
-# define WIDTH      1920
+# define HEIGHT     480
+# define WIDTH      640
 # define MENU_WIDTH 250
 # define FT_UINT_MAX    ((unsigned)(~0L))
 # define FT_INT_MAX ((int)(FT_UINT_MAX >> 1))
@@ -88,15 +88,15 @@ typedef struct s_transform
 
 typedef struct s_matrix
 {
-	float a;
-	float b;
-	float c;
-	float d;
-	float e;
-	float f;
-	float g;
-	float h;
-	float i;
+	float	a;
+	float	b;
+	float	c;
+	float	d;
+	float	e;
+	float	f;
+	float	g;
+	float	h;
+	float	i;
 }				t_matrix;
 
 void		pixel_put(t_data *data, int x, int y, int color);

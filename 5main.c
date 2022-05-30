@@ -29,7 +29,7 @@ int	main(int argc, char **argv)
 	}
 	else
 	{
-		ft_putstr_fd("Please insert map\n", 2);
+		ft_putstr_fd("Please insert map\n", 1);
 		return (1);
 	}
 	mlx_loop(data.mlx);

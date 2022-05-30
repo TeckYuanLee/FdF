@@ -33,7 +33,7 @@ int	check_array(char ***split, int row, int *col)
 
 	*col = 0;
 	while (split && split[0][*col])
-		*col++;
+		(*col)++;
 	if (row == 0 || *col == 0)
 		return (-1);
 	i = -1;
