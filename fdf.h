@@ -134,4 +134,8 @@ void		translate(t_point *coor, t_trans trans);
 void		center(t_point *coor);
 void		transform(t_grid *grid, t_transform *tform);
 
+void		exit_hook(t_data *data);
+void		key_hook2(int keycode, t_data *data);
+int			key_hook(int keycode, t_data *data);
+
 #endif

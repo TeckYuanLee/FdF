@@ -25,7 +25,7 @@ int	main(int argc, char **argv)
 		init_window(&data, argv[1]);
 		init_transform(&transf);
 		grid_put(&grid, &data, &transf);
-		mlx_key_hook(data.win, mlx_hook, &data);
+		mlx_key_hook(data.win, key_hook, &data);
 	}
 	else
 	{
