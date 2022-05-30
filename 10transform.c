@@ -44,9 +44,11 @@ void	transform(t_grid *grid, t_transform *tform)
 		j = -1;
 		while (++j < grid->col)
 		{
+			printf("%d ori(%d, %d, %d)\n", i, grid->tmp_grid[i][j].x, grid->tmp_grid[i][j].y, grid->tmp_grid[i][j].z);
 			rotate(&grid->tmp_grid[i][j], 'x', tform->rotate.x);
 			rotate(&grid->tmp_grid[i][j], 'y', tform->rotate.y);
 			rotate(&grid->tmp_grid[i][j], 'z', tform->rotate.z);
+			printf("-->rot(%d, %d, %d)\n", grid->tmp_grid[i][j].x, grid->tmp_grid[i][j].y, grid->tmp_grid[i][j].z);
 			if (tform->projection == 1)
 				zoom(&grid->tmp_grid[i][j], tform->zoom);
 			if (tform->projection == 1)

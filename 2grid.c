@@ -62,7 +62,7 @@ t_point	**grid_plot(char ***split, t_grid *grid)
 		{
 			tmp[i][j].x = x + (j * grid->box_length);
 			tmp[i][j].y = y - (i * grid->box_length);
-			tmp[i][j].z = -(ft_atoi(split[i][j])) * (grid->box_length)/* * 0.1*/;
+			tmp[i][j].z = -(ft_atoi(split[i][j])) * (grid->box_length) * 0.7;
 		}
 	}
 	return (tmp);
@@ -75,8 +75,8 @@ void	grid_wireframe(t_grid *grid, int row, int col)
 
 	grid->col = col;
 	grid->row = row;
-	max_width = (WIDTH * 0.80) / col;
-	max_height = (HEIGHT * 0.80) / row;
+	max_width = (WIDTH * 0.90) / col;
+	max_height = (HEIGHT * 0.90) / row;
 	if (max_width > max_height)
 		grid->box_length = max_width;
 	else
