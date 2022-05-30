@@ -41,9 +41,9 @@ int	init_grid(t_grid *grid, char *file)
 
 void	init_transform(t_transform *transf)
 {
-	transf->rotate.x = -5;
-	transf->rotate.y = -5;
-	transf->rotate.z = -95;
+	transf->rotate.x = 179;//-5;
+	transf->rotate.y = 178;//-5;
+	transf->rotate.z = -3;//-95;
 	transf->zoom = 0.5;
 	transf->transform.x = 0;
 	transf->transform.y = 0;

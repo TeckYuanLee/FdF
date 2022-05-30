@@ -62,8 +62,7 @@ t_point	**grid_plot(char ***split, t_grid *grid)
 		{
 			tmp[i][j].x = x + (j * grid->box_length);
 			tmp[i][j].y = y - (i * grid->box_length);
-			tmp[i][j].z = -(ft_atoi(split[i][j])) * (grid->box_length) * 0.1;
-			printf("%d  x %d y %d z %d\n", i, tmp[i][j].x, tmp[i][j].y, tmp[i][j].z);
+			tmp[i][j].z = -(ft_atoi(split[i][j])) * (grid->box_length)/* * 0.1*/;
 		}
 	}
 	return (tmp);
