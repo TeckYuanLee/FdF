@@ -75,8 +75,8 @@ void	grid_wireframe(t_grid *grid, int row, int col)
 
 	grid->col = col;
 	grid->row = row;
-	max_width = (WIDTH * 0.90) / col;
-	max_height = (HEIGHT * 0.90) / row;
+	max_width = (WIDTH * 0.80) / col;
+	max_height = (HEIGHT * 0.80) / row;
 	if (max_width > max_height)
 		grid->box_length = max_width;
 	else
