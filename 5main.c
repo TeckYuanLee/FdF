@@ -17,6 +17,8 @@ int	main(int argc, char **argv)
 	t_data		data;
 	t_grid		grid;
 	t_transform	transf;
+	int			a;
+	int			b;
 
 	if (argc == 2)
 	{
@@ -25,7 +27,14 @@ int	main(int argc, char **argv)
 		init_window(&data, argv[1]);
 		init_transform(&transf);
 		grid_put(&grid, &data, &transf);
-		mlx_key_hook(data.win, key_hook, &data);
+		a = mlx_key_hook(data.win, key_hook, &data);
+		b = mlx_hook(data.win, 17, 1L << 1, exit_win, &data);
+		if (a == 3 || b == 17)
+		{
+			printf("looool\n");
+			grid_free(grid.grid, grid.row);
+			grid_free(grid.tmp_grid, grid.row);
+		}
 	}
 	else
 	{

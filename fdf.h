@@ -6,7 +6,7 @@
 /*   By: telee <telee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 20:22:09 by telee             #+#    #+#             */
-/*   Updated: 2022/05/30 09:19:22 by telee            ###   ########.fr       */
+/*   Updated: 2022/05/30 20:21:47 by telee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,9 @@
 
 # define FDF_H
 
-# define HEIGHT     480
-# define WIDTH      640
+# define HEIGHT     1080
+# define WIDTH      1920
 # define MENU_WIDTH 250
-# define FT_UINT_MAX    ((unsigned)(~0L))
-# define FT_INT_MAX ((int)(FT_UINT_MAX >> 1))
-# define FT_INT_MIN ((int)(~FT_INT_MAX))
 # define WIN_FIT    0.80
 
 # include <stdio.h>
@@ -134,8 +131,7 @@ void		translate(t_point *coor, t_trans trans);
 void		center(t_point *coor);
 void		transform(t_grid *grid, t_transform *tform);
 
-void		exit_hook(t_data *data);
-void		key_hook2(int keycode, t_data *data);
+int			exit_win(t_data *data);
 int			key_hook(int keycode, t_data *data);
 
 #endif
