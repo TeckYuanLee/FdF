@@ -6,14 +6,14 @@
 #    By: telee <telee@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 10:32:20 by telee             #+#    #+#              #
-#    Updated: 2022/05/31 16:52:12 by telee            ###   ########.fr        #
+#    Updated: 2022/05/31 19:49:37 by telee            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	fdf
 LIBFT	=	libft/libft.a
 CC		=	gcc
-CFLAGS	=	-Wall -Werror -Wextra -I. -c
+CFLAGS	=	-Wall -Wextra -I.  -c #-Werror
 LIBRARY	=	-lmlx -framework OpenGL -framework AppKit
 ARFLAGS	= 	rcs
 
@@ -22,12 +22,12 @@ OBJS	=	$(SRCS:srcs/%.c=obj/%.o)
 
 obj/%.o:	srcs/%.c
 		@mkdir -p obj
-		@gcc $(CFLAGS) -c $< -o $@ -Iincludes
+		gcc $(CFLAGS) -c $< -o $@ -Iincludes
 
 all: $(NAME)
 
 $(NAME):		$(OBJS) 
-		@$(CC) $(SRCS) $(LIBFT) $(LIBRARY) -o $(NAME)
+		$(CC) -fsanitize=address -g3 $(SRCS) $(LIBFT) $(LIBRARY) -o $(NAME)
 		@$(MAKE) clean -sC ./libft
 
 clean:

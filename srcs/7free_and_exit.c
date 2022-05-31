@@ -29,13 +29,13 @@ char	***free_array(char ***split, int row, int col)
 	int	j;
 
 	i = 0;
-	while (i < row)
+	while (split[i])//i < row)
 	{
 		j = 0;
-		while (j <= col)
+		while (split[i][j])//j < col)
 		{
-			printf("%s\n", split[i][j]);
-			printf("%p\n\n", split[i][j]);
+			//printf("%s\n", split[i][j]);
+			//printf("%p\n\n", split[i][j]);
 			free(split[i][j]);
 			//printf("%s\n\n", split[i][j]);
 			j++;

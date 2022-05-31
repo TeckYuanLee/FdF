@@ -23,6 +23,8 @@ t_list	*get_list(int fd, int *row)
 	{
 		ft_lstadd_front(&lst, ft_lstnew(tmp));
 		(*row)++;
+		free(tmp);
+		tmp = NULL;
 	}
 	free(tmp);
 	return (lst);
@@ -33,10 +35,11 @@ char	***create_array(t_list *lst, int row)
 	char	***split;
 	int		i;
 
-	split = malloc(sizeof(char **) * row);
+	split = malloc(sizeof(char **) * (row + 1));
 	if (!split)
 		return (NULL);
-	i = row - 1;
+	i = row;// - 1;
+	split[i--] = 0;
 	while (i >= 0)
 	{
 		split[i--] = ft_split((char *)(lst->content), ' ');
@@ -85,10 +88,11 @@ int	grid_build(int fd, t_grid *grid)
 		grid_plot(split, grid);
 	}
 	ft_lstclear(&lst, free);
-	printf("%s\n", split[2][2]);
-	printf("%p\n", split[2][2]);
+	//printf("%s\n", split[2][2]);
+	//printf("%p\n", split[2][2]);
 	split = free_array(split, grid->row, grid->col);
-	printf("%s\n", split[2][2]);
+	//printf("%s\n", split[0][0]);
+	//printf("%s\n", split[2][2]);
 	//free(split);
 	close(fd);
 	return (error);
