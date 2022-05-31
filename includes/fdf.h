@@ -6,7 +6,7 @@
 /*   By: telee <telee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 20:22:09 by telee             #+#    #+#             */
-/*   Updated: 2022/05/31 15:25:26 by telee            ###   ########.fr       */
+/*   Updated: 2022/05/31 18:27:24 by telee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void		grid_dup(t_grid *grid);
 int			grid_build(int fd, t_grid *grid);
 char		***create_array(t_list *lst, int row);
 t_list		*get_list(int fd, int *row);
-char		***free_array(char ***split, int row);
+char		***free_array(char ***split, int row, int col);
 void		grid_plot(char ***split, t_grid *grid);
 t_point		**grid_alloc(int row, int col);
 void		grid_size(t_grid *grid, int row, int col);

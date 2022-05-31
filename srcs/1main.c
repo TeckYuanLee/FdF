@@ -61,8 +61,6 @@ int	main(int argc, char **argv)
 		init_window(&data, argv[1]);
 		init_transform(&transf);
 		grid_put(&grid, &data, &transf);
-		printf("%d\n", grid.grid[0][0].x);
-		printf("%d\n", grid.grid[0][0].x);
 		grid.grid = free_grid(grid.grid, grid.row);
 		grid.tmp_grid = free_grid(grid.tmp_grid, grid.row);
 		mlx_key_hook(data.win, key_hook, &data);

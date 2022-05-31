@@ -85,7 +85,11 @@ int	grid_build(int fd, t_grid *grid)
 		grid_plot(split, grid);
 	}
 	ft_lstclear(&lst, free);
-	split = free_array(split, grid->row);
+	printf("%s\n", split[2][2]);
+	printf("%p\n", split[2][2]);
+	split = free_array(split, grid->row, grid->col);
+	printf("%s\n", split[2][2]);
+	//free(split);
 	close(fd);
 	return (error);
 }

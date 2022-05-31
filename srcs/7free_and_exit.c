@@ -23,21 +23,28 @@ t_point	**free_grid(t_point **grid, int row)
 	return (NULL);
 }
 
-char	***free_array(char ***split, int row)
+char	***free_array(char ***split, int row, int col)
 {
 	int	i;
 	int	j;
 
-	i = -1;
-	while (++i < row)
+	i = 0;
+	while (i < row)
 	{
-		j = -1;
-		while (split[i][++j])
+		j = 0;
+		while (j <= col)
+		{
+			printf("%s\n", split[i][j]);
+			printf("%p\n\n", split[i][j]);
 			free(split[i][j]);
+			//printf("%s\n\n", split[i][j]);
+			j++;
+		}
 		free(split[i]);
+		i++;
 	}
 	free(split);
-	return (NULL);
+	return (split);
 }
 
 int	exit_win(t_data *data)
