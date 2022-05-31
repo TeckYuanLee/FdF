@@ -12,39 +12,29 @@
 
 #include "../includes/fdf.h"
 
-t_list	*get_list(int fd, int *row)
+char	***create_array(int fd, int *row, char *file)
 {
-	t_list	*lst;
 	char	*tmp;
+	char	***split;
+	int i;
 
-	lst = NULL;
 	*row = 0;
 	while (get_next_line(fd, &tmp) > 0)
-	{
-		ft_lstadd_front(&lst, ft_lstnew(tmp));
 		(*row)++;
-		free(tmp);
-		tmp = NULL;
-	}
 	free(tmp);
-	return (lst);
-}
-
-char	***create_array(t_list *lst, int row)
-{
-	char	***split;
-	int		i;
-
-	split = malloc(sizeof(char **) * (row + 1));
-	if (!split)
-		return (NULL);
-	i = row;// - 1;
-	split[i--] = 0;
-	while (i >= 0)
-	{
-		split[i--] = ft_split((char *)(lst->content), ' ');
-		lst = lst->next;
-	}
+	// close(fd);
+	// fd = open(file, O_RDONLY);
+	// split = malloc(sizeof(char **) * ((*row) + 1));
+	// printf("%d\n", (*row));
+	// if (!split)
+	// 	return (NULL);
+	// i = 0;
+	// while (get_next_line(fd, &tmp) > 0)
+	// {
+	// 	split[i] = ft_split(tmp, ' ');
+	// 	i++;
+	// }
+	// free(tmp);
 	return (split);
 }
 
@@ -70,30 +60,20 @@ int	check_array(char ***split, int row, int *col)
 	return (0);
 }
 
-int	grid_build(int fd, t_grid *grid)
+int	grid_build(int fd, t_grid *grid, char *file)
 {
-	t_list	*lst;
 	int		error;
 	char	***split;
 
-	lst = NULL;
 	error = 0;
-	split = NULL;
-	lst = get_list(fd, &grid->row);
-	split = create_array(lst, grid->row);
+	split = create_array(fd, &grid->row, file);
 	error = check_array(split, grid->row, &grid->col);
 	if (!error)
 	{
 		grid_size(grid, grid->row, grid->col);
 		grid_plot(split, grid);
 	}
-	ft_lstclear(&lst, free);
-	//printf("%s\n", split[2][2]);
-	//printf("%p\n", split[2][2]);
 	split = free_array(split, grid->row, grid->col);
-	//printf("%s\n", split[0][0]);
-	//printf("%s\n", split[2][2]);
-	//free(split);
 	close(fd);
 	return (error);
 }

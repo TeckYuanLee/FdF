@@ -29,15 +29,12 @@ char	***free_array(char ***split, int row, int col)
 	int	j;
 
 	i = 0;
-	while (split[i])//i < row)
+	while (i < row)
 	{
 		j = 0;
-		while (split[i][j])//j < col)
+		while (j < col)
 		{
-			//printf("%s\n", split[i][j]);
-			//printf("%p\n\n", split[i][j]);
 			free(split[i][j]);
-			//printf("%s\n\n", split[i][j]);
 			j++;
 		}
 		free(split[i]);
@@ -52,7 +49,7 @@ int	exit_win(t_data *data)
 	mlx_destroy_image(data->mlx, data->img);
 	mlx_destroy_window(data->mlx, data->win);
 	free(data->mlx);
-	system("leaks fdf");
+	// system("leaks fdf");
 	exit(0);
 }
 
@@ -63,7 +60,7 @@ int	key_hook(int keycode, t_data *data)
 		mlx_destroy_image(data->mlx, data->img);
 		mlx_destroy_window(data->mlx, data->win);
 		free(data->mlx);
-		system("leaks fdf");
+		// system("leaks fdf");
 		exit(0);
 		return (0);
 	}

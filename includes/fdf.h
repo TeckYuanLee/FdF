@@ -6,7 +6,7 @@
 /*   By: telee <telee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 20:22:09 by telee             #+#    #+#             */
-/*   Updated: 2022/05/31 18:27:24 by telee            ###   ########.fr       */
+/*   Updated: 2022/05/31 22:29:31 by telee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 # define HEIGHT     720
 # define WIDTH      1280
-# define Z_ELVTD	0.3
+# define Z_ELVTD	0.2
 # define ON_DESTROY	17
 
 # include <stdio.h>
@@ -84,9 +84,8 @@ void		init_transform(t_transform *transf);
 void		gridline_put(t_grid *grid, t_data *data, int color);
 void		grid_put(t_grid *grid, t_data *data, t_transform *transf);
 void		grid_dup(t_grid *grid);
-int			grid_build(int fd, t_grid *grid);
-char		***create_array(t_list *lst, int row);
-t_list		*get_list(int fd, int *row);
+int			grid_build(int fd, t_grid *grid, char *file);
+char		***create_array(int fd, int *row, char *file);
 char		***free_array(char ***split, int row, int col);
 void		grid_plot(char ***split, t_grid *grid);
 t_point		**grid_alloc(int row, int col);

@@ -31,7 +31,7 @@ int	init_grid(t_grid *grid, char *file)
 		ft_putstr_fd("File error.\n", 2);
 		return (-1);
 	}
-	if (grid_build(fd, grid) == -1)
+	if (grid_build(fd, grid, file) == -1)
 	{
 		ft_putstr_fd("Map error.\n", 2);
 		return (-1);

@@ -6,14 +6,14 @@
 #    By: telee <telee@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 10:32:20 by telee             #+#    #+#              #
-#    Updated: 2022/05/31 19:49:37 by telee            ###   ########.fr        #
+#    Updated: 2022/05/31 22:45:23 by telee            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	fdf
 LIBFT	=	libft/libft.a
 CC		=	gcc
-CFLAGS	=	-Wall -Wextra -I.  -c #-Werror
+CFLAGS	=	-Wall -Werror -Wextra -I. -c
 LIBRARY	=	-lmlx -framework OpenGL -framework AppKit
 ARFLAGS	= 	rcs
 
@@ -22,7 +22,7 @@ OBJS	=	$(SRCS:srcs/%.c=obj/%.o)
 
 obj/%.o:	srcs/%.c
 		@mkdir -p obj
-		gcc $(CFLAGS) -c $< -o $@ -Iincludes
+		@gcc $(CFLAGS) -c $< -o $@ -Iincludes
 
 all: $(NAME)
 
