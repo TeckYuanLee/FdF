@@ -6,7 +6,7 @@
 /*   By: telee <telee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 14:29:17 by telee             #+#    #+#             */
-/*   Updated: 2022/05/28 08:35:25 by telee            ###   ########.fr       */
+/*   Updated: 2022/05/31 11:33:28 by telee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_list
 }				t_list;
 
 int			ft_abs(int n);
+float		ft_abs_float(float n);
 void		ft_putchar(char c);
 void		ft_putstr(char *s);
 void		ft_putnbr(int nb);

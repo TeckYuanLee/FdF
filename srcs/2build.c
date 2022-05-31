@@ -10,48 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../includes/fdf.h"
 
-void	init_window(t_data *data, char *title)
-{
-	data->mlx = mlx_init();
-	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, title);
-	data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
-	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
-			&data->line_length, &data->endian);
-}
-
-int	init_grid(t_grid *grid, char *file)
-{
-	int	fd;
-
-	fd = open(file, O_RDONLY);
-	if (fd == -1)
-	{
-		ft_putstr_fd("File error.\n", 2);
-		return (-1);
-	}
-	if (read_file(fd, grid) == -1)
-	{
-		ft_putstr_fd("Map error.\n", 2);
-		return (-1);
-	}
-	return (0);
-}
-
-void	init_transform(t_transform *transf)
-{
-	transf->rotate.x = 9;
-	transf->rotate.y = 10;
-	transf->rotate.z = 90;
-	transf->zoom = 0.5;
-	transf->transform.x = 0;
-	transf->transform.y = 0;
-	transf->iso_radian_const
-		= (30 / 180.0) * 60.0;
-}
-
-t_list	*create_list(int fd, int *row)
+t_list	*get_list(int fd, int *row)
 {
 	t_list	*lst;
 	char	*tmp;
@@ -67,7 +28,46 @@ t_list	*create_list(int fd, int *row)
 	return (lst);
 }
 
-int	read_file(int fd, t_grid *grid)
+char	***create_array(t_list *lst, int row)
+{
+	char	***split;
+	int		i;
+
+	split = malloc(sizeof(char **) * row);
+	if (!split)
+		return (NULL);
+	i = row - 1;
+	while (i >= 0)
+	{
+		split[i--] = ft_split((char *)(lst->content), ' ');
+		lst = lst->next;
+	}
+	return (split);
+}
+
+int	check_array(char ***split, int row, int *col)
+{
+	int	i;
+	int	count_tmp;
+
+	*col = 0;
+	while (split && split[0][*col])
+		(*col)++;
+	if (row == 0 || *col == 0)
+		return (-1);
+	i = -1;
+	while (++i < row)
+	{
+		count_tmp = 0;
+		while (split[i][count_tmp])
+			count_tmp++;
+		if (count_tmp != *col)
+			return (-1);
+	}
+	return (0);
+}
+
+int	grid_build(int fd, t_grid *grid)
 {
 	t_list	*lst;
 	int		row;
@@ -78,7 +78,7 @@ int	read_file(int fd, t_grid *grid)
 	lst = NULL;
 	error = 0;
 	split = NULL;
-	lst = create_list(fd, &row);
+	lst = get_list(fd, &row);
 	split = create_array(lst, row);
 	error = check_array(split, row, &col);
 	if (!error)

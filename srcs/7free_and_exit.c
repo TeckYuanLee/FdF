@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../includes/fdf.h"
 
-t_point	**grid_free(t_point **grid, int row)
+t_point	**free_grid(t_point **grid, int row)
 {
 	int	i;
 
@@ -40,16 +40,23 @@ char	***free_array(char ***split, int row)
 	return (NULL);
 }
 
-void	clean_image(t_data *data)
+int	exit_win(t_data *data)
 {
-	int	i;
-	int	j;
+	mlx_destroy_image(data->mlx, data->img);
+	mlx_destroy_window(data->mlx, data->win);
+	free(data->mlx);
+	exit(0);
+}
 
-	i = -1;
-	while (++i < HEIGHT)
+int	key_hook(int keycode, t_data *data)
+{
+	if (keycode == 53)
 	{
-		j = -1;
-		while (++j < WIDTH)
-			pixel_put(data, j, i, 0x00000000);
+		mlx_destroy_image(data->mlx, data->img);
+		mlx_destroy_window(data->mlx, data->win);
+		free(data->mlx);
+		exit(0);
+		return (0);
 	}
+	return (-1);
 }

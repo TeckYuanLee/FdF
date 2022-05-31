@@ -10,7 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../includes/fdf.h"
+
+void	isometric(t_point *coor, float iso_rad_const)
+{
+	t_point	tmp;
+
+	tmp.x = coor->x;
+	tmp.y = coor->y;
+	coor->x = (tmp.x - tmp.y) * cos(iso_rad_const);
+	coor->y = -(coor->z) + (tmp.x + tmp.y) * sin(iso_rad_const);
+	coor->z = coor->z;
+}
 
 void	zoom(t_point *coor, float zoom)
 {
@@ -19,12 +30,6 @@ void	zoom(t_point *coor, float zoom)
 	coor->x *= zoom;
 	coor->y *= zoom;
 	coor->z *= zoom;
-}
-
-void	translate(t_point *coor, t_trans trans)
-{
-	coor->x += trans.x;
-	coor->y += trans.y;
 }
 
 void	center(t_point *coor)
@@ -44,12 +49,11 @@ void	transform(t_grid *grid, t_transform *tform)
 		j = -1;
 		while (++j < grid->col)
 		{
-			rotate(&grid->tmp_grid[i][j], 'x', tform->rotate.x);
-			rotate(&grid->tmp_grid[i][j], 'y', tform->rotate.y);
-			rotate(&grid->tmp_grid[i][j], 'z', tform->rotate.z);
-			zoom(&grid->tmp_grid[i][j], tform->zoom);
+			//rotate(&grid->tmp_grid[i][j], 'x', tform->rotate.x);
+			//rotate(&grid->tmp_grid[i][j], 'y', tform->rotate.y);
+			//rotate(&grid->tmp_grid[i][j], 'z', tform->rotate.z);
 			isometric(&grid->tmp_grid[i][j], tform->iso_radian_const);
-			translate(&grid->tmp_grid[i][j], tform->transform);
+			zoom(&grid->tmp_grid[i][j], tform->zoom);
 			center(&grid->tmp_grid[i][j]);
 		}
 	}

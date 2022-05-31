@@ -6,7 +6,7 @@
 #    By: telee <telee@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 10:32:20 by telee             #+#    #+#              #
-#    Updated: 2022/05/30 18:25:39 by telee            ###   ########.fr        #
+#    Updated: 2022/05/31 09:25:01 by telee            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,10 +17,10 @@ CFLAGS	=	-Wall -Werror -Wextra -I. -c
 LIBRARY	=	-lmlx -framework OpenGL -framework AppKit
 ARFLAGS	= 	rcs
 
-SRCS	=	$(wildcard ./*.c)
-OBJS	=	$(SRCS:./%.c=obj/%.o)
+SRCS	=	$(wildcard srcs/*.c)
+OBJS	=	$(SRCS:srcs/%.c=obj/%.o)
 
-obj/%.o:	%.c
+obj/%.o:	srcs/%.c
 		@mkdir -p obj
 		@gcc $(FLAGS) -c $< -o $@ -Iincludes
 

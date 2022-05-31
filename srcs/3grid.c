@@ -10,24 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
-
-char	***create_array(t_list *lst, int row)
-{
-	char	***split;
-	int		i;
-
-	split = malloc(sizeof(char **) * row);
-	if (!split)
-		return (NULL);
-	i = row - 1;
-	while (i >= 0)
-	{
-		split[i--] = ft_split((char *)(lst->content), ' ');
-		lst = lst->next;
-	}
-	return (split);
-}
+#include "../includes/fdf.h"
 
 t_point	**grid_alloc(int row, int col)
 {
@@ -62,7 +45,7 @@ t_point	**grid_plot(char ***split, t_grid *grid)
 		{
 			tmp[i][j].x = x + (j * grid->box_length);
 			tmp[i][j].y = y - (i * grid->box_length);
-			tmp[i][j].z = -(ft_atoi(split[i][j])) * (grid->box_length) * 0.1;
+			tmp[i][j].z = -(ft_atoi(split[i][j])) * (grid->box_length) * 0.5;
 		}
 	}
 	return (tmp);
@@ -100,4 +83,13 @@ void	grid_dup(t_grid *grid)
 			grid->tmp_grid[i][j].z = grid->grid[i][j].z;
 		}
 	}
+}
+
+void	grid_put(t_grid *grid, t_data *data, t_transform *transf)
+{
+	grid_dup(grid);
+	transform(grid, transf);
+	gridline_put(grid, data, 0x0000FF00);
+	mlx_put_image_to_window(data->mlx,
+		data->win, data->img, 0, 0);
 }

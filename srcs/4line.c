@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../includes/fdf.h"
 
 void	pixel_put(t_data *data, int x, int y, int color)
 {
@@ -30,8 +30,8 @@ static void	line_put_x(t_point a, t_point b, int color, t_data *data)
 	int			x;
 	int			y;
 	int			p;
-	const int	dx = abs_int(b.x - a.x);
-	const int	dy = abs_int(b.y - a.y);
+	const int	dx = ft_abs(b.x - a.x);
+	const int	dy = ft_abs(b.y - a.y);
 
 	x = a.x;
 	y = a.y;
@@ -58,8 +58,8 @@ static void	line_put_y(t_point a, t_point b, int color, t_data *data)
 	int			x;
 	int			y;
 	int			p;
-	const int	dx = abs_int(b.x - a.x);
-	const int	dy = abs_int(b.y - a.y);
+	const int	dx = ft_abs(b.x - a.x);
+	const int	dy = ft_abs(b.y - a.y);
 
 	x = a.x;
 	y = a.y;
@@ -90,8 +90,8 @@ void	line_put(t_point a, t_point b, int color, t_data *data)
 		grad = (b.y - a.y);
 	else
 		grad = (b.y - a.y) / (float)(b.x - a.x);
-	if ((b.x < a.x && abs_float(grad) <= 1.0)
-		|| (b.y < a.y && abs_float(grad) > 1.0))
+	if ((b.x < a.x && ft_abs_float(grad) <= 1.0)
+		|| (b.y < a.y && ft_abs_float(grad) > 1.0))
 	{
 		temp = a.x;
 		a.x = b.x;
