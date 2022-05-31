@@ -45,6 +45,7 @@ int	exit_win(t_data *data)
 	mlx_destroy_image(data->mlx, data->img);
 	mlx_destroy_window(data->mlx, data->win);
 	free(data->mlx);
+	system("leaks fdf");
 	exit(0);
 }
 
@@ -55,6 +56,7 @@ int	key_hook(int keycode, t_data *data)
 		mlx_destroy_image(data->mlx, data->img);
 		mlx_destroy_window(data->mlx, data->win);
 		free(data->mlx);
+		system("leaks fdf");
 		exit(0);
 		return (0);
 	}

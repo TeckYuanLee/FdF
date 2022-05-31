@@ -44,7 +44,7 @@ void	init_transform(t_transform *transf)
 	transf->rotate.x = 9;
 	transf->rotate.y = 10;
 	transf->rotate.z = 90;
-	transf->zoom = 0.5;
+	transf->zoom = 0.4;
 	transf->iso_radian_const = 10;//(30 / 180.0) * 60.0;
 }
 
@@ -61,10 +61,12 @@ int	main(int argc, char **argv)
 		init_window(&data, argv[1]);
 		init_transform(&transf);
 		grid_put(&grid, &data, &transf);
+		printf("%d\n", grid.grid[0][0].x);
+		printf("%d\n", grid.grid[0][0].x);
+		grid.grid = free_grid(grid.grid, grid.row);
+		grid.tmp_grid = free_grid(grid.tmp_grid, grid.row);
 		mlx_key_hook(data.win, key_hook, &data);
-		mlx_hook(data.win, 17, 1L << 1, exit_win, &data);
-		free_grid(grid.grid, grid.row);
-		free_grid(grid.tmp_grid, grid.row);
+		mlx_hook(data.win, ON_DESTROY, 1L << 1, exit_win, &data);
 	}
 	else
 	{

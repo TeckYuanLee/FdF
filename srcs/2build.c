@@ -48,7 +48,7 @@ char	***create_array(t_list *lst, int row)
 int	check_array(char ***split, int row, int *col)
 {
 	int	i;
-	int	count_tmp;
+	int	tmp_col;
 
 	*col = 0;
 	while (split && split[0][*col])
@@ -58,10 +58,10 @@ int	check_array(char ***split, int row, int *col)
 	i = -1;
 	while (++i < row)
 	{
-		count_tmp = 0;
-		while (split[i][count_tmp])
-			count_tmp++;
-		if (count_tmp != *col)
+		tmp_col = 0;
+		while (split[i][tmp_col])
+			tmp_col++;
+		if (tmp_col != *col)
 			return (-1);
 	}
 	return (0);
@@ -70,25 +70,22 @@ int	check_array(char ***split, int row, int *col)
 int	grid_build(int fd, t_grid *grid)
 {
 	t_list	*lst;
-	int		row;
-	int		col;
 	int		error;
 	char	***split;
 
 	lst = NULL;
 	error = 0;
 	split = NULL;
-	lst = get_list(fd, &row);
-	split = create_array(lst, row);
-	error = check_array(split, row, &col);
+	lst = get_list(fd, &grid->row);
+	split = create_array(lst, grid->row);
+	error = check_array(split, grid->row, &grid->col);
 	if (!error)
 	{
-		grid->grid = NULL;
-		grid_wireframe(grid, row, col);
-		grid->grid = grid_plot(split, grid);
+		grid_size(grid, grid->row, grid->col);
+		grid_plot(split, grid);
 	}
 	ft_lstclear(&lst, free);
-	split = free_array(split, row);
+	split = free_array(split, grid->row);
 	close(fd);
 	return (error);
 }

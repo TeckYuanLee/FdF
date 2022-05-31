@@ -6,7 +6,7 @@
 #    By: telee <telee@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 10:32:20 by telee             #+#    #+#              #
-#    Updated: 2022/05/31 09:25:01 by telee            ###   ########.fr        #
+#    Updated: 2022/05/31 16:52:12 by telee            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ OBJS	=	$(SRCS:srcs/%.c=obj/%.o)
 
 obj/%.o:	srcs/%.c
 		@mkdir -p obj
-		@gcc $(FLAGS) -c $< -o $@ -Iincludes
+		@gcc $(CFLAGS) -c $< -o $@ -Iincludes
 
 all: $(NAME)
 

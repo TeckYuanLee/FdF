@@ -6,7 +6,7 @@
 /*   By: telee <telee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 20:22:09 by telee             #+#    #+#             */
-/*   Updated: 2022/05/31 11:34:08 by telee            ###   ########.fr       */
+/*   Updated: 2022/05/31 15:25:26 by telee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 # define FDF_H
 
-# define HEIGHT     1080
-# define WIDTH      1920
+# define HEIGHT     720
+# define WIDTH      1280
+# define Z_ELVTD	0.3
+# define ON_DESTROY	17
 
 # include <stdio.h>
 
@@ -34,6 +36,22 @@ typedef struct s_point
 	int	z;
 }				t_point;
 
+typedef struct s_transform
+{
+	t_point	rotate;
+	float	zoom;
+	float	iso_radian_const;
+}				t_transform;
+
+typedef struct s_grid
+{
+	t_point	**grid;
+	t_point	**tmp_grid;
+	int		col;
+	int		row;
+	int		grid_size;
+}				t_grid;
+
 typedef struct s_data
 {
 	void	*mlx;
@@ -44,22 +62,6 @@ typedef struct s_data
 	int		line_length;
 	int		endian;
 }				t_data;
-
-typedef struct s_grid
-{
-	t_point	**grid;
-	t_point	**tmp_grid;
-	int		col;
-	int		row;
-	int		box_length;
-}				t_grid;
-
-typedef struct s_transform
-{
-	t_point	rotate;
-	float	zoom;
-	float	iso_radian_const;
-}				t_transform;
 
 typedef struct s_matrix
 {
@@ -86,9 +88,9 @@ int			grid_build(int fd, t_grid *grid);
 char		***create_array(t_list *lst, int row);
 t_list		*get_list(int fd, int *row);
 char		***free_array(char ***split, int row);
-t_point		**grid_plot(char ***split, t_grid *grid);
+void		grid_plot(char ***split, t_grid *grid);
 t_point		**grid_alloc(int row, int col);
-void		grid_wireframe(t_grid *grid, int row, int col);
+void		grid_size(t_grid *grid, int row, int col);
 int			check_array(char ***split, int row, int *col);
 t_point		**grid_alloc(int row, int col);
 t_point		**free_grid(t_point **grid, int row);
