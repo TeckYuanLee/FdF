@@ -6,7 +6,7 @@
 /*   By: telee <telee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/07 16:21:51 by telee             #+#    #+#             */
-/*   Updated: 2022/05/28 08:22:01 by telee            ###   ########.fr       */
+/*   Updated: 2022/06/01 15:22:47 by telee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdio.h>
 
 # define BUFFER_SIZE 1000
 

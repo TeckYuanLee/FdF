@@ -12,15 +12,6 @@
 
 #include "../includes/fdf.h"
 
-void	init_window(t_data *data, char *title)
-{
-	data->mlx = mlx_init();
-	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, title);
-	data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
-	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
-			&data->line_length, &data->endian);
-}
-
 int	init_grid(t_grid *grid, char *file)
 {
 	int	fd;
@@ -29,14 +20,27 @@ int	init_grid(t_grid *grid, char *file)
 	if (fd == -1)
 	{
 		ft_putstr_fd("File error.\n", 2);
+		system("leaks fdf");
 		return (-1);
 	}
-	if (grid_build(fd, grid, file) == -1)
+	if (grid_size(fd, grid) == -1)
 	{
 		ft_putstr_fd("Map error.\n", 2);
+		system("leaks fdf");
 		return (-1);
 	}
+	grid_plot(grid);
+	get_z(grid, file);
 	return (0);
+}
+
+void	init_window(t_data *data, char *title)
+{
+	data->mlx = mlx_init();
+	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, title);
+	data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
+			&data->line_length, &data->endian);
 }
 
 void	init_transform(t_transform *transf)
@@ -62,7 +66,6 @@ int	main(int argc, char **argv)
 		init_transform(&transf);
 		grid_put(&grid, &data, &transf);
 		grid.grid = free_grid(grid.grid, grid.row);
-		grid.tmp_grid = free_grid(grid.tmp_grid, grid.row);
 		mlx_key_hook(data.win, key_hook, &data);
 		mlx_hook(data.win, ON_DESTROY, 1L << 1, exit_win, &data);
 	}

@@ -23,25 +23,19 @@ t_point	**free_grid(t_point **grid, int row)
 	return (NULL);
 }
 
-char	***free_array(char ***split, int row, int col)
+void	free_array(char **split)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	while (i < row)
+	while (split[i])
 	{
-		j = 0;
-		while (j < col)
-		{
-			free(split[i][j]);
-			j++;
-		}
 		free(split[i]);
+		split[i] = 0;
 		i++;
 	}
 	free(split);
-	return (split);
+	split = 0;
 }
 
 int	exit_win(t_data *data)
@@ -49,7 +43,7 @@ int	exit_win(t_data *data)
 	mlx_destroy_image(data->mlx, data->img);
 	mlx_destroy_window(data->mlx, data->win);
 	free(data->mlx);
-	// system("leaks fdf");
+	system("leaks fdf");
 	exit(0);
 }
 
@@ -60,7 +54,7 @@ int	key_hook(int keycode, t_data *data)
 		mlx_destroy_image(data->mlx, data->img);
 		mlx_destroy_window(data->mlx, data->win);
 		free(data->mlx);
-		// system("leaks fdf");
+		system("leaks fdf");
 		exit(0);
 		return (0);
 	}

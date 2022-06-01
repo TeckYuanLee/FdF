@@ -6,7 +6,7 @@
 #    By: telee <telee@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 10:32:20 by telee             #+#    #+#              #
-#    Updated: 2022/05/31 22:45:23 by telee            ###   ########.fr        #
+#    Updated: 2022/06/01 14:46:00 by telee            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ obj/%.o:	srcs/%.c
 all: $(NAME)
 
 $(NAME):		$(OBJS) 
-		$(CC) -fsanitize=address -g3 $(SRCS) $(LIBFT) $(LIBRARY) -o $(NAME)
+		$(CC) $(SRCS) $(LIBFT) $(LIBRARY) -o $(NAME)
 		@$(MAKE) clean -sC ./libft
 
 clean:

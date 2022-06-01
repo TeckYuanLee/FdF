@@ -22,24 +22,15 @@ t_point	**grid_alloc(int row, int col)
 		return (NULL);
 	i = 0;
 	while (i < row)
-		tmp[i++] = malloc(sizeof(t_point) * col);
+	{
+		tmp[i] = malloc(sizeof(t_point) * col);
+		//printf("%p\n", tmp[i]);
+		i++;
+	}
 	return (tmp);
 }
 
-// void	grid_size(t_grid *grid, int row, int col)
-// {
-// 	int	max_width;
-// 	int	max_height;
-
-// 	max_width = WIDTH / col;
-// 	max_height = HEIGHT / row;
-// 	if (max_width > max_height)
-// 		grid->grid_size = max_width;
-// 	else
-// 		grid->grid_size = max_height;
-// }
-
-void	grid_plot(char ***split, t_grid *grid, char *file)
+void	grid_plot(t_grid *grid)
 {
 	int		i;
 	int		j;
@@ -47,7 +38,6 @@ void	grid_plot(char ***split, t_grid *grid, char *file)
 	int		y;
 
 	grid->grid = grid_alloc(grid->row, grid->col);
-	grid->tmp_grid = grid_alloc(grid->row, grid->col);
 	x = -(grid->grid_size * (grid->col - 1) / 2);
 	y = (grid->grid_size * (grid->row - 1) / 2);
 	i = -1;
@@ -58,46 +48,40 @@ void	grid_plot(char ***split, t_grid *grid, char *file)
 		{
 			grid->grid[i][j].x = x + (j * grid->grid_size);
 			grid->grid[i][j].y = y - (i * grid->grid_size);
-			grid->grid[i][j].z = -(ft_atoi(split[i][j])) * (grid->grid_size) * Z_ELVTD;
 		}
 	}
 }
 
-void	get_z(int i, int j, char *file, t_grid *grid)
+void	get_z(t_grid *grid, char *file)
 {
 	int fd;
 	char	*tmp;
 	char	**lol;
-
-	fd = open(file, O_RDONLY);
-	while (get_next_line(fd, &tmp) > 0)
-	{
-		lol = ft_split(tmp, ' ');
-		grid->grid[i][j].z = -(ft_atoi(lol[i])) * (grid->grid_size)
-	}
-}
-
-void	grid_dup(t_grid *grid)
-{
 	int	i;
 	int	j;
 
+	fd = open(file, O_RDONLY);
 	i = -1;
 	while (++i < grid->row)
 	{
+		if (get_next_line(fd, &tmp) > 0)
+		{
+			lol = ft_split(tmp, ' ');
+			free(tmp);
+		}
 		j = -1;
 		while (++j < grid->col)
 		{
-			grid->tmp_grid[i][j].x = grid->grid[i][j].x;
-			grid->tmp_grid[i][j].y = grid->grid[i][j].y;
-			grid->tmp_grid[i][j].z = grid->grid[i][j].z;
+			grid->grid[i][j].z = -(ft_atoi(lol[j])) * (grid->grid_size) * Z_ELVTD;
 		}
+		free_array(lol);
+		lol = 0;
 	}
+	close(fd);
 }
 
 void	grid_put(t_grid *grid, t_data *data, t_transform *transf)
 {
-	grid_dup(grid);
 	transform(grid, transf);
 	gridline_put(grid, data, 0x0000FF00);
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);

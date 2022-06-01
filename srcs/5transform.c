@@ -51,12 +51,12 @@ void	transform(t_grid *grid, t_transform *tform)
 		j = -1;
 		while (++j < grid->col)
 		{
-			rotate(&grid->tmp_grid[i][j], 'x', tform->rotate.x);
-			rotate(&grid->tmp_grid[i][j], 'y', tform->rotate.y);
-			rotate(&grid->tmp_grid[i][j], 'z', tform->rotate.z);
-			isometric(&grid->tmp_grid[i][j], tform->iso_radian_const);
-			zoom(&grid->tmp_grid[i][j], tform->zoom);
-			center(&grid->tmp_grid[i][j]);
+			rotate(&grid->grid[i][j], 'x', tform->rotate.x);
+			rotate(&grid->grid[i][j], 'y', tform->rotate.y);
+			rotate(&grid->grid[i][j], 'z', tform->rotate.z);
+			isometric(&grid->grid[i][j], tform->iso_radian_const);
+			zoom(&grid->grid[i][j], tform->zoom);
+			center(&grid->grid[i][j]);
 		}
 	}
 }

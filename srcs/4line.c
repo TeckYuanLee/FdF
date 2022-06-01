@@ -112,7 +112,7 @@ void	gridline_put(t_grid *grid, t_data *data, int color)
 	int		j;
 	t_point	**g;
 
-	g = grid->tmp_grid;
+	g = grid->grid;
 	i = -1;
 	while (++i < grid->row)
 	{

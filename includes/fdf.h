@@ -6,7 +6,7 @@
 /*   By: telee <telee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 20:22:09 by telee             #+#    #+#             */
-/*   Updated: 2022/05/31 22:29:31 by telee            ###   ########.fr       */
+/*   Updated: 2022/06/01 11:05:18 by telee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ typedef struct s_transform
 typedef struct s_grid
 {
 	t_point	**grid;
-	t_point	**tmp_grid;
 	int		col;
 	int		row;
 	int		grid_size;
@@ -83,16 +82,16 @@ int			init_grid(t_grid *grid, char *file);
 void		init_transform(t_transform *transf);
 void		gridline_put(t_grid *grid, t_data *data, int color);
 void		grid_put(t_grid *grid, t_data *data, t_transform *transf);
-void		grid_dup(t_grid *grid);
-int			grid_build(int fd, t_grid *grid, char *file);
+void		grid_build(int fd, t_grid *grid, char *file);
 void		create_array(int fd, int *row, int *col, t_grid *grid);
-char		***free_array(char ***split, int row, int col);
-void		grid_plot(char ***split, t_grid *grid, char *file);
+void		free_array(char **split);
+void		grid_plot(t_grid *grid);
 t_point		**grid_alloc(int row, int col);
-void		grid_size(t_grid *grid, int row, int col);
-int			check_array(char ***split, int row, int *col);
+int			grid_size(int fd, t_grid *grid);
+int			check_map(char *split, t_grid *grid);
 t_point		**grid_alloc(int row, int col);
 t_point		**free_grid(t_point **grid, int row);
+void		get_z(t_grid *grid, char *file);
 
 void		isometric(t_point *coor, float iso_rad_const);
 t_matrix	rotate_x(int degree);
