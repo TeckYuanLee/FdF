@@ -12,17 +12,28 @@
 
 #include "../includes/fdf.h"
 
-char	***create_array(int fd, int *row, char *file)
+void	create_array(int fd, int *row, int *col, t_grid *grid)
 {
 	char	*tmp;
-	char	***split;
-	int i;
+	int	max_width;
+	int	max_height;
 
 	*row = 0;
+	*col = 0;
 	while (get_next_line(fd, &tmp) > 0)
 		(*row)++;
+	while (tmp)
+	{
+		(*col)++;
+	}
+	max_width = WIDTH / (*col);
+	max_height = HEIGHT / (*row);
+	if (max_width > max_height)
+		grid->grid_size = max_width;
+	else
+		grid->grid_size = max_height;
 	free(tmp);
-	// close(fd);
+	close(fd);
 	// fd = open(file, O_RDONLY);
 	// split = malloc(sizeof(char **) * ((*row) + 1));
 	// printf("%d\n", (*row));
@@ -35,45 +46,44 @@ char	***create_array(int fd, int *row, char *file)
 	// 	i++;
 	// }
 	// free(tmp);
-	return (split);
 }
 
-int	check_array(char ***split, int row, int *col)
-{
-	int	i;
-	int	tmp_col;
+// int	check_array(char ***split, int row, int *col)
+// {
+// 	int	i;
+// 	int	tmp_col;
 
-	*col = 0;
-	while (split && split[0][*col])
-		(*col)++;
-	if (row == 0 || *col == 0)
-		return (-1);
-	i = -1;
-	while (++i < row)
-	{
-		tmp_col = 0;
-		while (split[i][tmp_col])
-			tmp_col++;
-		if (tmp_col != *col)
-			return (-1);
-	}
-	return (0);
-}
+// 	*col = 0;
+// 	while (split && split[0][*col])
+// 		(*col)++;
+// 	if (row == 0 || *col == 0)
+// 		return (-1);
+// 	i = -1;
+// 	while (++i < row)
+// 	{
+// 		tmp_col = 0;
+// 		while (split[i][tmp_col])
+// 			tmp_col++;
+// 		if (tmp_col != *col)
+// 			return (-1);
+// 	}
+// 	return (0);
+// }
 
 int	grid_build(int fd, t_grid *grid, char *file)
 {
-	int		error;
-	char	***split;
+	//int		error;
+	//char	***split;
 
-	error = 0;
-	split = create_array(fd, &grid->row, file);
-	error = check_array(split, grid->row, &grid->col);
+	//error = 0;
+	create_array(fd, &grid->row, &grid->col, grid);
+	//error = check_array(split, grid->row, &grid->col);
 	if (!error)
 	{
 		grid_size(grid, grid->row, grid->col);
-		grid_plot(split, grid);
+		grid_plot(split, grid, file);
 	}
 	split = free_array(split, grid->row, grid->col);
-	close(fd);
+	//close(fd);
 	return (error);
 }

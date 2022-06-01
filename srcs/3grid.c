@@ -26,20 +26,20 @@ t_point	**grid_alloc(int row, int col)
 	return (tmp);
 }
 
-void	grid_size(t_grid *grid, int row, int col)
-{
-	int	max_width;
-	int	max_height;
+// void	grid_size(t_grid *grid, int row, int col)
+// {
+// 	int	max_width;
+// 	int	max_height;
 
-	max_width = WIDTH / col;
-	max_height = HEIGHT / row;
-	if (max_width > max_height)
-		grid->grid_size = max_width;
-	else
-		grid->grid_size = max_height;
-}
+// 	max_width = WIDTH / col;
+// 	max_height = HEIGHT / row;
+// 	if (max_width > max_height)
+// 		grid->grid_size = max_width;
+// 	else
+// 		grid->grid_size = max_height;
+// }
 
-void	grid_plot(char ***split, t_grid *grid)
+void	grid_plot(char ***split, t_grid *grid, char *file)
 {
 	int		i;
 	int		j;
@@ -60,6 +60,20 @@ void	grid_plot(char ***split, t_grid *grid)
 			grid->grid[i][j].y = y - (i * grid->grid_size);
 			grid->grid[i][j].z = -(ft_atoi(split[i][j])) * (grid->grid_size) * Z_ELVTD;
 		}
+	}
+}
+
+void	get_z(int i, int j, char *file, t_grid *grid)
+{
+	int fd;
+	char	*tmp;
+	char	**lol;
+
+	fd = open(file, O_RDONLY);
+	while (get_next_line(fd, &tmp) > 0)
+	{
+		lol = ft_split(tmp, ' ');
+		grid->grid[i][j].z = -(ft_atoi(lol[i])) * (grid->grid_size)
 	}
 }
 
