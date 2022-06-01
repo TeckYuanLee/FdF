@@ -5,76 +5,90 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: telee <telee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/07 13:28:12 by telee             #+#    #+#             */
-/*   Updated: 2022/06/01 15:41:24 by telee            ###   ########.fr       */
+/*   Created: 2022/06/01 21:25:29 by telee             #+#    #+#             */
+/*   Updated: 2022/06/01 23:02:38 by telee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	line_or_eof(char **line, char **str)
+void	free_null(char **ptr)
 {
-	char	*tmp;
-	int		j;
-
-	j = 0;
-	while ((*str)[j] != '\n' && (*str)[j] != '\0')
-		j++;
-	if ((*str)[j] == '\n')
+	if (ptr || *ptr)
 	{
-		*line = ft_substr(*str, 0, j);
-		tmp = ft_strdup((*str) + j + 1);
-		free(*str);
-		*str = tmp;
+		free(*ptr);
+		*ptr = NULL;
 	}
-	else if ((*str)[j] == '\0')
-	{
-		*line = ft_strdup(*str);
-		free(*str);
-		*str = 0;
-	}
-	if (!(*str))
-		return (0);
-	return (1);
 }
 
-int	ft_joinstr(int fd, char **str, char **line)
+int	count(char *str)
 {
-	char	*tmp;
-	char	buf[BUFFER_SIZE + 1];
-	int		i;
+	int	i;
 
-	i = read(fd, buf, BUFFER_SIZE);
+	i = 0;
+	while (str[i] != '\n' && str[i] != '\0')
+		i++;
+	return (i);
+}
+
+char	*get_next_line_cut(int fd, char *storage)
+{
+	char		buffer[10 + 1];
+	char		*tempstr;
+	int			i;
+
+	if (storage == NULL)
+	{
+		storage = malloc(1 * sizeof(char));
+		storage[0] = '\0';
+	}
+	i = read(fd, buffer, 10);
 	while (i > 0)
 	{
-		buf[i] = '\0';
-		tmp = ft_strjoin(*str, buf);
-		free(*str);
-		*str = tmp;
-		if (ft_strrchr(*str, '\n'))
+		buffer[i] = '\0';
+		tempstr = ft_strjoin(storage, buffer);
+		free(storage);
+		storage = tempstr;
+		printf("-->   %p  -->  %p\n", storage, tempstr);
+		if (ft_strchr(storage, '\n'))
 			break ;
-		i = read(fd, buf, BUFFER_SIZE);
+		i = read(fd, buffer, 10);
 	}
-	if (i < 0)
-	{
-		free(*str);
-		*str = 0;
-		return (-1);
-	}
-	return (line_or_eof(line, str));
+	return (storage);
 }
 
-int	get_next_line(int fd, char **line)
+char	*get_next_line(int fd)
 {
-	static char	*str;
+	char		*line;
+	static char	*storage;
+	char		*tempstr;
+	int			i;
 
-	if (fd == -1 || !line)
-		return (-1);
-	if (str == NULL)
+	line = NULL;
+	tempstr = get_next_line_cut(fd, storage);
+	if (tempstr[0] == '\0')
 	{
-		str = malloc(sizeof(char) * 1);
-		if (str)
-			str[0] = '\0';
+		free(storage);
+		//free(tempstr);
 	}
-	return (ft_joinstr(fd, &str, line));
+	storage = tempstr;
+	printf("wtf   %p  wtf   %p\n", storage, tempstr);
+	//free_null(&tempstr);
+	i = count(storage);
+	if (storage[0] != '\0')
+	{
+		line = ft_substr(storage, 0, (i));
+		tempstr = ft_substr(storage, (i + 1), ft_strlen(storage));
+		free(storage);
+		storage = tempstr;
+		//free_null(&tempstr);
+	}
+	if (storage[0] == '\0')
+	{
+		free(storage);
+		storage = NULL;
+		//free(tempstr);
+	}
+	printf("line  %p\n", line);
+	return (line);
 }

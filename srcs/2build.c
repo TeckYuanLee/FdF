@@ -19,6 +19,13 @@ int	check_map(char *split, t_grid *grid)
 	char	**lol;
 
 	lol = ft_split(split, ' ');
+	printf("lol %p split %p\n", lol, split);
+	i = 0;
+	while (lol[i])
+	{
+		printf("%s %d\n", lol[i], i);
+		i++;
+	}
 	if (grid->col == 0)
 	{
 		i = 0;
@@ -35,6 +42,7 @@ int	check_map(char *split, t_grid *grid)
 		j++;
 		i++;
 	}
+	printf("%d  %d  %d\n", j, grid->row, grid->col);
 	free_array(lol);
 	if (grid->row == 0 || grid->col == 0)
 		return (-1);
@@ -52,17 +60,26 @@ int	grid_size(int fd, t_grid *grid)
 	grid->row = 0;
 	grid->col = 0;
 	tmp = 0;
-	while (get_next_line(fd, &tmp) > 0)
+	while (1)
 	{
+		tmp = get_next_line(fd);
+		printf("%p\n", tmp);
+		if (tmp == NULL)
+		{
+			free(tmp);
+			break ;
+		}
 		(grid->row)++;
-		//printf("%p\n", tmp);
+		//printf("%s\n", tmp);
 		if (check_map(tmp, grid) == -1)
 		{
 			free(tmp);
 			close(fd);
 			return (-1);
 		}
+		printf("here\n");
 		free(tmp);
+		tmp = 0;
 	}
 	free(tmp);
 	tmp = 0;
@@ -75,3 +92,17 @@ int	grid_size(int fd, t_grid *grid)
 	close(fd);
 	return (0);
 }
+
+
+// int	main()
+// {
+// 	char *line;
+
+// 	while (1)
+// 	{
+// 		line = get_next_line(fd);
+// 		if (line == NULL)
+// 			break ;
+// 		printf("%s\n", line);
+// 	}
+// }

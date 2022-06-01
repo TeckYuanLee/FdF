@@ -64,9 +64,10 @@ void	get_z(t_grid *grid, char *file)
 	i = -1;
 	while (++i < grid->row)
 	{
-		if (get_next_line(fd, &tmp) > 0)
+		if ((tmp = get_next_line(fd)) > 0)
 		{
 			lol = ft_split(tmp, ' ');
+			printf("tmp %p lol %p\n", tmp, lol);
 			free(tmp);
 		}
 		j = -1;
