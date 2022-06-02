@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   1cleaner.c                                         :+:      :+:    :+:   */
+/*   6free_and_exit.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: telee <telee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/27 19:41:45 by telee             #+#    #+#             */
-/*   Updated: 2022/05/27 19:41:45 by telee            ###   ########.fr       */
+/*   Created: 2022/06/02 13:27:15 by telee             #+#    #+#             */
+/*   Updated: 2022/06/02 13:27:15 by telee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,23 @@ void	free_array(char **split)
 	int	i;
 
 	i = 0;
-	while (split[i])
+	if (split || *split)
 	{
-		free(split[i]);
-		split[i] = 0;
-		i++;
+		while (split[i])
+		{
+			free(split[i]);
+			split[i] = 0;
+			i++;
+		}
+		free(split);
+		split = 0;
 	}
-	free(split);
-	split = 0;
 }
 
 int	exit_win(t_data *data)
 {
 	mlx_destroy_image(data->mlx, data->img);
 	mlx_destroy_window(data->mlx, data->win);
-	free(data->mlx);
 	system("leaks fdf");
 	exit(0);
 }
@@ -53,10 +55,8 @@ int	key_hook(int keycode, t_data *data)
 	{
 		mlx_destroy_image(data->mlx, data->img);
 		mlx_destroy_window(data->mlx, data->win);
-		free(data->mlx);
 		system("leaks fdf");
 		exit(0);
-		return (0);
 	}
 	return (-1);
 }

@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   10transform.c                                      :+:      :+:    :+:   */
+/*   3transform.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: telee <telee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/28 10:22:51 by telee             #+#    #+#             */
-/*   Updated: 2022/05/28 10:22:51 by telee            ###   ########.fr       */
+/*   Created: 2022/06/02 13:26:49 by telee             #+#    #+#             */
+/*   Updated: 2022/06/02 13:26:49 by telee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-void	isometric(t_point *coor, float iso_rad_const)
+void	isometric(t_point *coor)
 {
-	t_point	tmp;
+	t_point	prev;
 
 	//printf("(%d, %d, %d)\n", coor->x, coor->y, coor->z);
-	tmp.x = coor->x;
-	tmp.y = coor->y;
-	coor->x = (tmp.x - tmp.y) * cos(iso_rad_const);
-	coor->y = -(coor->z) + (tmp.x + tmp.y) * sin(iso_rad_const);
-	coor->z = coor->z;
+	prev.x = coor->x;
+	prev.y = coor->y;
+	coor->x = (prev.x - prev.y) * cos(ISO_RAD);
+	coor->y = -(coor->z) + (prev.x + prev.y) * sin(ISO_RAD);
+	//coor->z = coor->z;
 	//printf("(%d, %d, %d)\n\n", coor->x, coor->y, coor->z);
 }
 
@@ -54,9 +54,16 @@ void	transform(t_grid *grid, t_transform *tform)
 			rotate(&grid->grid[i][j], 'x', tform->rotate.x);
 			rotate(&grid->grid[i][j], 'y', tform->rotate.y);
 			rotate(&grid->grid[i][j], 'z', tform->rotate.z);
-			isometric(&grid->grid[i][j], tform->iso_radian_const);
+			//isometric(&grid->grid[i][j]);
 			zoom(&grid->grid[i][j], tform->zoom);
 			center(&grid->grid[i][j]);
 		}
 	}
+}
+
+void	grid_put(t_grid *grid, t_data *data, t_transform *transf)
+{
+	transform(grid, transf);
+	gridline_put(grid, data, 0x0000FF00);
+	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 }

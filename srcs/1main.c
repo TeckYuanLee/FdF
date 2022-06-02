@@ -1,16 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   5main.c                                            :+:      :+:    :+:   */
+/*   1main.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: telee <telee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/27 19:42:20 by telee             #+#    #+#             */
-/*   Updated: 2022/05/27 19:42:20 by telee            ###   ########.fr       */
+/*   Created: 2022/06/02 13:26:18 by telee             #+#    #+#             */
+/*   Updated: 2022/06/02 13:26:18 by telee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
+
+int	grid_build(int fd, t_grid *grid)
+{
+	char	*tmp;
+
+	grid->row = 0;
+	grid->col = 0;
+	while (1)
+	{
+		tmp = get_next_line(fd);
+		if (tmp == NULL)
+			break ;
+		(grid->row)++;
+		if (check_map(tmp, grid) == -1)
+		{
+			free(tmp);
+			return (-1);
+		}
+		free(tmp);
+	}
+	grid_size(grid);
+	return (0);
+}
 
 int	init_grid(t_grid *grid, char *file)
 {
@@ -23,12 +46,13 @@ int	init_grid(t_grid *grid, char *file)
 		system("leaks fdf");
 		return (-1);
 	}
-	if (grid_size(fd, grid) == -1)
+	if (grid_build(fd, grid) == -1)
 	{
 		ft_putstr_fd("Map error.\n", 2);
 		system("leaks fdf");
 		return (-1);
 	}
+	close(fd);
 	grid_plot(grid);
 	get_z(grid, file);
 	return (0);
@@ -45,11 +69,10 @@ void	init_window(t_data *data, char *title)
 
 void	init_transform(t_transform *transf)
 {
-	transf->rotate.x = 9;
-	transf->rotate.y = 10;
-	transf->rotate.z = 90;
+	transf->rotate.x = 0;//9;
+	transf->rotate.y = 0;//10;
+	transf->rotate.z = 0;//90;
 	transf->zoom = 0.4;
-	transf->iso_radian_const = 10;//(30 / 180.0) * 60.0;
 }
 
 int	main(int argc, char **argv)

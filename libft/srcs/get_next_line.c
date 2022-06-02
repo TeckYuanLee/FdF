@@ -6,7 +6,7 @@
 /*   By: telee <telee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 21:25:29 by telee             #+#    #+#             */
-/*   Updated: 2022/06/01 23:02:38 by telee            ###   ########.fr       */
+/*   Updated: 2022/06/02 09:28:12 by telee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ char	*get_next_line_cut(int fd, char *storage)
 		tempstr = ft_strjoin(storage, buffer);
 		free(storage);
 		storage = tempstr;
-		printf("-->   %p  -->  %p\n", storage, tempstr);
 		if (ft_strchr(storage, '\n'))
 			break ;
 		i = read(fd, buffer, 10);
@@ -67,13 +66,8 @@ char	*get_next_line(int fd)
 	line = NULL;
 	tempstr = get_next_line_cut(fd, storage);
 	if (tempstr[0] == '\0')
-	{
 		free(storage);
-		//free(tempstr);
-	}
 	storage = tempstr;
-	printf("wtf   %p  wtf   %p\n", storage, tempstr);
-	//free_null(&tempstr);
 	i = count(storage);
 	if (storage[0] != '\0')
 	{
@@ -81,14 +75,11 @@ char	*get_next_line(int fd)
 		tempstr = ft_substr(storage, (i + 1), ft_strlen(storage));
 		free(storage);
 		storage = tempstr;
-		//free_null(&tempstr);
 	}
 	if (storage[0] == '\0')
 	{
 		free(storage);
 		storage = NULL;
-		//free(tempstr);
 	}
-	printf("line  %p\n", line);
 	return (line);
 }

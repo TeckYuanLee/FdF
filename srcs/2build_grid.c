@@ -1,16 +1,55 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   2grid.c                                            :+:      :+:    :+:   */
+/*   2build_grid.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: telee <telee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/27 19:42:04 by telee             #+#    #+#             */
-/*   Updated: 2022/05/27 19:42:04 by telee            ###   ########.fr       */
+/*   Created: 2022/06/02 13:26:37 by telee             #+#    #+#             */
+/*   Updated: 2022/06/02 13:26:37 by telee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
+
+void	grid_size(t_grid *grid)
+{
+	int	max_width;
+	int	max_height;
+
+	max_width = WIDTH / (grid->col);
+	max_height = HEIGHT / (grid->row);
+	if (max_width > max_height)
+		grid->grid_size = max_width;
+	else
+		grid->grid_size = max_height;
+}
+
+int	check_map(char *split, t_grid *grid)
+{
+	int		i;
+	char	**lol;
+
+	lol = ft_split(split, ' ');
+	if (grid->col == 0)
+	{
+		i = 0;
+		while (lol[i])
+		{
+			(grid->col)++;
+			i++;
+		}
+	}
+	i = 0;
+	while (lol[i])
+		i++;
+	free_array(lol);
+	if (grid->row == 0 || grid->col == 0)
+		return (-1);
+	if (i != grid->col)
+		return (-1);
+	return (0);
+}
 
 t_point	**grid_alloc(int row, int col)
 {
@@ -24,7 +63,6 @@ t_point	**grid_alloc(int row, int col)
 	while (i < row)
 	{
 		tmp[i] = malloc(sizeof(t_point) * col);
-		//printf("%p\n", tmp[i]);
 		i++;
 	}
 	return (tmp);
@@ -54,36 +92,29 @@ void	grid_plot(t_grid *grid)
 
 void	get_z(t_grid *grid, char *file)
 {
-	int fd;
+	int		fd;
 	char	*tmp;
 	char	**lol;
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	fd = open(file, O_RDONLY);
 	i = -1;
 	while (++i < grid->row)
 	{
-		if ((tmp = get_next_line(fd)) > 0)
+		tmp = get_next_line(fd);
+		if (tmp != NULL)
 		{
 			lol = ft_split(tmp, ' ');
-			printf("tmp %p lol %p\n", tmp, lol);
 			free(tmp);
 		}
 		j = -1;
 		while (++j < grid->col)
 		{
-			grid->grid[i][j].z = -(ft_atoi(lol[j])) * (grid->grid_size) * Z_ELVTD;
+			grid->grid[i][j].z = -(ft_atoi(lol[j]))
+				* (grid->grid_size) * Z_ELVTD;
 		}
 		free_array(lol);
-		lol = 0;
 	}
 	close(fd);
-}
-
-void	grid_put(t_grid *grid, t_data *data, t_transform *transf)
-{
-	transform(grid, transf);
-	gridline_put(grid, data, 0x0000FF00);
-	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 }

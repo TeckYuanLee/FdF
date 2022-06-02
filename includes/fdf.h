@@ -6,7 +6,7 @@
 /*   By: telee <telee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 20:22:09 by telee             #+#    #+#             */
-/*   Updated: 2022/06/01 11:05:18 by telee            ###   ########.fr       */
+/*   Updated: 2022/06/02 13:59:51 by telee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define HEIGHT     720
 # define WIDTH      1280
 # define Z_ELVTD	0.2
+# define ISO_RAD	0.523599
 # define ON_DESTROY	17
 
 # include <stdio.h>
@@ -40,7 +41,6 @@ typedef struct s_transform
 {
 	t_point	rotate;
 	float	zoom;
-	float	iso_radian_const;
 }				t_transform;
 
 typedef struct s_grid
@@ -82,21 +82,21 @@ int			init_grid(t_grid *grid, char *file);
 void		init_transform(t_transform *transf);
 void		gridline_put(t_grid *grid, t_data *data, int color);
 void		grid_put(t_grid *grid, t_data *data, t_transform *transf);
-void		grid_build(int fd, t_grid *grid, char *file);
 void		create_array(int fd, int *row, int *col, t_grid *grid);
 void		free_array(char **split);
 void		grid_plot(t_grid *grid);
 t_point		**grid_alloc(int row, int col);
-int			grid_size(int fd, t_grid *grid);
+int			grid_build(int fd, t_grid *grid);
+void		grid_size(t_grid *grid);
 int			check_map(char *split, t_grid *grid);
 t_point		**grid_alloc(int row, int col);
 t_point		**free_grid(t_point **grid, int row);
 void		get_z(t_grid *grid, char *file);
 
-void		isometric(t_point *coor, float iso_rad_const);
-t_matrix	rotate_x(int degree);
-t_matrix	rotate_y(int degree);
-t_matrix	rotate_z(int degree);
+void		isometric(t_point *coor);
+t_matrix	rotate_x(t_point *coor, int degree);
+t_matrix	rotate_y(t_point *coor, int degree);
+t_matrix	rotate_z(t_point *coor, int degree);
 void		rotate(t_point *coor, char axis, int degree);
 void		zoom(t_point *coor, float zoom);
 void		center(t_point *coor);

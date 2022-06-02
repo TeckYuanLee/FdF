@@ -6,7 +6,7 @@
 /*   By: telee <telee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 16:23:51 by telee             #+#    #+#             */
-/*   Updated: 2022/06/01 20:23:58 by telee            ###   ########.fr       */
+/*   Updated: 2022/06/02 11:16:54 by telee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,20 @@ char	*splitted(char const *s, char c, int a)
 	return (str);
 }
 
+void	assign(char **new, char *row, int *a, int *b)
+{
+	if (ft_strlen(row))
+	{
+		new[*b] = row;
+		*a += (ft_strlen(new[(*b)++]) + 1);
+	}
+	else
+	{
+		(*a)++;
+		free(row);
+	}
+}
+
 char	**ft_split(char const *s, char c)
 {
 	char	**new;
@@ -69,14 +83,7 @@ char	**ft_split(char const *s, char c)
 	while (a < (int)ft_strlen(s))
 	{
 		row = splitted(s, c, a);
-		if (ft_strlen(row))
-		{
-			new[b] = row;
-			a += (ft_strlen(new[b]) + 1);
-			b++;
-		}
-		else
-			a++;
+		assign(new, row, &a, &b);
 	}
 	new[b] = 0;
 	return (new);
