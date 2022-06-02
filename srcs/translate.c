@@ -1,16 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   3transform.c                                       :+:      :+:    :+:   */
+/*   translate.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: telee <telee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/02 13:26:49 by telee             #+#    #+#             */
-/*   Updated: 2022/06/02 13:26:49 by telee            ###   ########.fr       */
+/*   Created: 2022/06/02 21:09:54 by telee             #+#    #+#             */
+/*   Updated: 2022/06/02 21:09:54 by telee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
+
+void	rotate(t_point *coor, int degree)
+{
+	const float		rad = (degree);
+	t_matrix		tmp;
+	t_point			coortmp;
+
+	tmp.a = 1;
+	tmp.b = 0;
+	tmp.c = 0;
+	tmp.d = 0;
+	tmp.e = cos(rad);
+	tmp.f = -sin(rad);
+	tmp.g = 0;
+	tmp.h = sin(rad);
+	tmp.i = cos(rad);
+	coortmp.x = coor->x;
+	coortmp.y = coor->y;
+	coor->x = (coortmp.x * tmp.e) - (coortmp.y * tmp.h);
+	coor->y = (coortmp.y * tmp.e) + (coortmp.x * tmp.h);
+}
 
 void	isometric(t_point *coor)
 {
@@ -37,7 +58,7 @@ void	center(t_point *coor)
 	coor->y = (HEIGHT / 2) - coor->y;
 }
 
-void	transform(t_grid *grid, t_transform *tform)
+void	translate(t_grid *grid)
 {
 	int	i;
 	int	j;
@@ -48,17 +69,10 @@ void	transform(t_grid *grid, t_transform *tform)
 		j = -1;
 		while (++j < grid->col)
 		{
-			rotate(&grid->grid[i][j], tform->rotate.x);
+			rotate(&grid->grid[i][j], DEGREE);
 			isometric(&grid->grid[i][j]);
-			zoom(&grid->grid[i][j], tform->zoom);
+			zoom(&grid->grid[i][j], ZOOM);
 			center(&grid->grid[i][j]);
 		}
 	}
-}
-
-void	grid_put(t_grid *grid, t_data *data, t_transform *transf)
-{
-	transform(grid, transf);
-	gridline_put(grid, data, 0x0000FF00);
-	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 }

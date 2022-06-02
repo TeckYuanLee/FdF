@@ -1,16 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   1main.c                                            :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: telee <telee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/02 13:26:18 by telee             #+#    #+#             */
-/*   Updated: 2022/06/02 13:26:18 by telee            ###   ########.fr       */
+/*   Created: 2022/06/02 21:09:36 by telee             #+#    #+#             */
+/*   Updated: 2022/06/02 21:09:36 by telee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
+
+void	grid_size(t_grid *grid)
+{
+	int	max_width;
+	int	max_height;
+
+	max_width = WIDTH / (grid->col);
+	max_height = HEIGHT / (grid->row);
+	if (max_width > max_height)
+		grid->grid_size = max_width;
+	else
+		grid->grid_size = max_height;
+}
 
 int	grid_build(int fd, t_grid *grid)
 {
@@ -67,25 +80,17 @@ void	init_window(t_data *data, char *title)
 			&data->line_length, &data->endian);
 }
 
-void	init_transform(t_transform *transf)
-{
-	transf->rotate.x = 300;
-	transf->zoom = 0.4;
-}
-
 int	main(int argc, char **argv)
 {
 	t_data		data;
 	t_grid		grid;
-	t_transform	transf;
 
 	if (argc == 2)
 	{
 		if (init_grid(&grid, argv[1]) == -1)
 			return (2);
 		init_window(&data, argv[1]);
-		init_transform(&transf);
-		grid_put(&grid, &data, &transf);
+		grid_put(&grid, &data);
 		grid.grid = free_grid(grid.grid, grid.row);
 		mlx_key_hook(data.win, key_hook, &data);
 		mlx_hook(data.win, ON_DESTROY, 1L << 1, exit_win, &data);

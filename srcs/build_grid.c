@@ -1,29 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   2build_grid.c                                      :+:      :+:    :+:   */
+/*   build_grid.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: telee <telee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/02 13:26:37 by telee             #+#    #+#             */
-/*   Updated: 2022/06/02 13:26:37 by telee            ###   ########.fr       */
+/*   Created: 2022/06/02 21:09:47 by telee             #+#    #+#             */
+/*   Updated: 2022/06/02 21:09:47 by telee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
-
-void	grid_size(t_grid *grid)
-{
-	int	max_width;
-	int	max_height;
-
-	max_width = WIDTH / (grid->col);
-	max_height = HEIGHT / (grid->row);
-	if (max_width > max_height)
-		grid->grid_size = max_width;
-	else
-		grid->grid_size = max_height;
-}
 
 int	check_map(char *split, t_grid *grid)
 {
@@ -117,4 +104,11 @@ void	get_z(t_grid *grid, char *file)
 		free_array(lol);
 	}
 	close(fd);
+}
+
+void	grid_put(t_grid *grid, t_data *data)
+{
+	translate(grid);
+	gridline_put(grid, data, 0x0000FF00);
+	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 }
