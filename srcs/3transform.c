@@ -16,13 +16,10 @@ void	isometric(t_point *coor)
 {
 	t_point	prev;
 
-	//printf("(%d, %d, %d)\n", coor->x, coor->y, coor->z);
 	prev.x = coor->x;
 	prev.y = coor->y;
 	coor->x = (prev.x - prev.y) * cos(ISO_RAD);
 	coor->y = -(coor->z) + (prev.x + prev.y) * sin(ISO_RAD);
-	//coor->z = coor->z;
-	//printf("(%d, %d, %d)\n\n", coor->x, coor->y, coor->z);
 }
 
 void	zoom(t_point *coor, float zoom)
@@ -51,10 +48,8 @@ void	transform(t_grid *grid, t_transform *tform)
 		j = -1;
 		while (++j < grid->col)
 		{
-			rotate(&grid->grid[i][j], 'x', tform->rotate.x);
-			rotate(&grid->grid[i][j], 'y', tform->rotate.y);
-			rotate(&grid->grid[i][j], 'z', tform->rotate.z);
-			//isometric(&grid->grid[i][j]);
+			rotate(&grid->grid[i][j], tform->rotate.x);
+			isometric(&grid->grid[i][j]);
 			zoom(&grid->grid[i][j], tform->zoom);
 			center(&grid->grid[i][j]);
 		}

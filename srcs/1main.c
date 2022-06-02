@@ -69,9 +69,7 @@ void	init_window(t_data *data, char *title)
 
 void	init_transform(t_transform *transf)
 {
-	transf->rotate.x = 0;//9;
-	transf->rotate.y = 0;//10;
-	transf->rotate.z = 0;//90;
+	transf->rotate.x = 300;
 	transf->zoom = 0.4;
 }
 
